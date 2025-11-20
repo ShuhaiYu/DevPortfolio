@@ -23,7 +23,9 @@ const AIChat: React.FC = () => {
   };
 
   useEffect(() => {
-    scrollToBottom();
+    if (isOpen) {
+      scrollToBottom();
+    }
   }, [messages, isOpen]);
 
   const handleSend = async () => {
@@ -136,7 +138,6 @@ const AIChat: React.FC = () => {
               onKeyDown={handleKeyPress}
               placeholder="Type command..."
               className="flex-1 bg-transparent text-white text-sm font-mono focus:outline-none placeholder-slate-600"
-              autoFocus
             />
             <button
               onClick={handleSend}
