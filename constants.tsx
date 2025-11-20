@@ -2,8 +2,8 @@ import React from 'react';
 import { Project, Experience, Service, Testimonial } from './types';
 import { Github, Linkedin, Twitter, Mail, Layout, Server, Zap, Brain, Globe, Shield } from 'lucide-react';
 
-export const OWNER_NAME = "Alex Chen";
-export const OWNER_TITLE = "Senior Full Stack Developer";
+export const OWNER_NAME = "Felix Yu";
+export const OWNER_TITLE = "Full Stack Developer";
 export const BIO = "I build accessible, pixel-perfect, and performant web experiences. With over 6 years of experience in the React ecosystem, I specialize in bridging the gap between design and engineering.";
 
 export const SKILLS = [

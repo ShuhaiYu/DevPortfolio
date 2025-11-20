@@ -28,7 +28,7 @@ const Hero: React.FC = () => {
         </div>
 
         {/* Main Title with Glitch Effect - Scaled down for mobile */}
-        <h1 className="font-heading text-4xl sm:text-7xl md:text-9xl font-black tracking-tighter text-white mb-6 relative z-10 leading-[0.9] w-full max-w-[95vw] break-words">
+        <h1 className="font-heading text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tighter text-white mb-6 relative z-10 leading-[0.9] w-full max-w-[95vw]">
           <span className="block animate-slide-up" style={{animationDelay: '0.2s'}}>
             DIGITAL
           </span>
@@ -67,12 +67,6 @@ const Hero: React.FC = () => {
             Initialize_Contact
           </a>
         </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in" style={{animationDelay: '1.5s'}}>
-        <span className="font-mono text-[10px] text-primary/60 tracking-[0.3em] uppercase">Scroll</span>
-        <div className="w-[1px] h-12 sm:h-16 bg-gradient-to-b from-primary to-transparent"></div>
       </div>
     </section>
   );
