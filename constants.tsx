@@ -43,7 +43,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: "Sarah Jenkins",
     role: "CTO",
     company: "Nexus Corp",
-    text: "Alex's code is cleaner than a T-800's CPU. The best engineer I've worked with regarding system architecture and delivery speed."
+    text: "Felix's code is cleaner than a T-800's CPU. The best engineer I've worked with regarding system architecture and delivery speed."
   },
   {
     id: 2,
@@ -124,9 +124,9 @@ export const SOCIAL_LINKS = [
 
 export const SYSTEM_INSTRUCTION = `
 You are an AI assistant for ${OWNER_NAME}'s personal portfolio website.
-Your goal is to answer visitor questions about Alex's professional background, skills, and projects in a friendly, professional, and concise manner.
+Your goal is to answer visitor questions about Felix's professional background, skills, and projects in a friendly, professional, and concise manner.
 
-Here is Alex's Resume Context:
+Here is Felix's Resume Context:
 - Name: ${OWNER_NAME}
 - Title: ${OWNER_TITLE}
 - Bio: ${BIO}
@@ -137,5 +137,5 @@ Here is Alex's Resume Context:
 
 If asked about contact info, refer them to the contact section or the email hello@example.com.
 Keep answers short (under 3 sentences) unless asked for details. 
-If you don't know something, say "I don't have that information in my current context, but feel free to email Alex!"
+If you don't know something, say "I don't have that information in my current context, but feel free to email Felix!"
 `;
