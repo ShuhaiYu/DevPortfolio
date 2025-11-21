@@ -64,30 +64,30 @@ export const TESTIMONIALS: Testimonial[] = [
 export const PROJECTS: Project[] = [
   {
     id: 1,
-    title: "Nebula Dashboard",
-    description: "A high-performance analytics dashboard for SaaS metrics using Next.js and Recharts. Features real-time data visualization via WebSockets.",
-    technologies: ["React", "TypeScript", "D3.js", "Supabase"],
-    imageUrl: "https://picsum.photos/600/400?random=1",
-    demoUrl: "#",
-    repoUrl: "#"
+    title: "Austin Dashboard",
+    description: "A high-performance student dashboard for VCE Education using Next.js and Recharts. Features real-time exam data visualization via WebSockets.",
+    technologies: ["Next.js", "TypeScript", "Socket.io", "MySQL"],
+    imageUrl: "images/austin.png",
+    demoUrl: "https://myaustin.com.au/dashboard",
+    repoUrl: "https://github.com/ShuhaiYu/austin-student-dashboard"
   },
   {
     id: 2,
-    title: "Echo Chat",
-    description: "An AI-powered messaging platform featuring real-time translation and sentiment analysis using Google Gemini API.",
-    technologies: ["Node.js", "Socket.io", "Gemini API", "Redis"],
-    imageUrl: "https://picsum.photos/600/400?random=2",
-    demoUrl: "#",
-    repoUrl: "#"
+    title: "Onlypix AI Chat",
+    description: "An AI-powered chat application integrated with Novita's image generation API. Built with Next.js and Data Streaming for real-time interactions.",
+    technologies: ["Next.js", "i18n", "Novita API", "Supabase"],
+    imageUrl: "images/onlypixai.png",
+    demoUrl: "https://www.onlypixai.com/",
+    repoUrl: "https://github.com/ShuhaiYu/botai"
   },
   {
     id: 3,
-    title: "Vantage E-com",
-    description: "Headless e-commerce storefront built for speed and SEO. Integrated with Shopify Storefront API.",
-    technologies: ["Next.js", "Tailwind", "Shopify API"],
-    imageUrl: "https://picsum.photos/600/400?random=3",
-    demoUrl: "#",
-    repoUrl: "#"
+    title: "Auction Platform",
+    description: "E-commerce platform built for speed and SEO. Starting from scratch with Ably, Neon, and Stripe integration.",
+    technologies: ["Next.js", "Tailwind", "Stripe", "PostgreSQL"],
+    imageUrl: "images/whiskytrade.png",
+    demoUrl: "https://whiskytrade-2.vercel.app/",
+    repoUrl: "https://github.com/ShuhaiYu/whiskytrade-2"
   }
 ];
 
@@ -116,10 +116,10 @@ export const EXPERIENCES: Experience[] = [
 ];
 
 export const SOCIAL_LINKS = [
-  { platform: "GitHub", url: "https://github.com", icon: <Github size={20} /> },
-  { platform: "LinkedIn", url: "https://linkedin.com", icon: <Linkedin size={20} /> },
-  { platform: "Twitter", url: "https://twitter.com", icon: <Twitter size={20} /> },
-  { platform: "Email", url: "mailto:hello@example.com", icon: <Mail size={20} /> },
+  { platform: "GitHub", url: "https://github.com/ShuhaiYu", icon: <Github size={20} /> },
+  { platform: "LinkedIn", url: "https://www.linkedin.com/in/shuhaiyu", icon: <Linkedin size={20} /> },
+  { platform: "Twitter", url: "https://x.com/FelixYuDev", icon: <Twitter size={20} /> },
+  { platform: "Email", url: "mailto:info@felixyu.net", icon: <Mail size={20} /> },
 ];
 
 export const SYSTEM_INSTRUCTION = `
@@ -135,7 +135,7 @@ Here is Felix's Resume Context:
 - Projects: ${PROJECTS.map(p => `${p.title} (${p.description})`).join("; ")}
 - Experience: ${EXPERIENCES.map(e => `${e.role} at ${e.company} (${e.period}): ${e.description}`).join("; ")}
 
-If asked about contact info, refer them to the contact section or the email hello@example.com.
+If asked about contact info, refer them to the contact section or the email info@felixyu.net.
 Keep answers short (under 3 sentences) unless asked for details. 
 If you don't know something, say "I don't have that information in my current context, but feel free to email Felix!"
 `;

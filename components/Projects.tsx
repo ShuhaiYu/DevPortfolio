@@ -105,7 +105,7 @@ const Projects: React.FC = () => {
         </div>
         
         <div className="mt-12 text-center md:text-left">
-           <a href="#" className="inline-flex items-center text-white border-b border-white/30 pb-1 hover:border-accent hover:text-accent transition-all uppercase tracking-widest text-xs sm:text-sm">
+           <a href="https://github.com/ShuhaiYu" className="inline-flex items-center text-white border-b border-white/30 pb-1 hover:border-accent hover:text-accent transition-all uppercase tracking-widest text-xs sm:text-sm">
               View Github Archive <ArrowUpRight className="ml-2 w-4 h-4" />
            </a>
         </div>
