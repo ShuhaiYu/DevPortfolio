@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { BIO, SKILLS } from '../constants';
 import { User, Code } from 'lucide-react';
 
 const About: React.FC = () => {
+  const [imageKey, setImageKey] = useState(99);
+
+  const handleImageError = useCallback(() => {
+    setImageKey(prev => prev + 1);
+  }, []);
   const stats = [
     { label: 'INTELLIGENCE', value: 98, color: 'bg-primary' },
     { label: 'AGILITY', value: 92, color: 'bg-accent' },
@@ -40,10 +45,11 @@ const About: React.FC = () => {
               </div>
 
               {/* Profile Image / Glitch Effect */}
-              <img 
-                src="https://picsum.photos/800/1000?random=99" 
-                alt="Felix Yu - Full Stack Developer" 
+              <img
+                src={`https://picsum.photos/800/1000?random=${imageKey}`}
+                alt="Felix Yu - Full Stack Developer"
                 className="absolute inset-0 w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700"
+                onError={handleImageError}
               />
               <div className="absolute inset-0 bg-primary/20 mix-blend-hard-light opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>
