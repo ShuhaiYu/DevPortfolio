@@ -18,7 +18,7 @@ const Contact: React.FC = () => {
             <h3 className="text-2xl md:text-4xl font-bold text-white mb-8">Interested in collaboration?</h3>
             
             <a 
-            href="mailto:hello@example.com"
+            href="mailto:info@felixyu.net"
             className="inline-flex items-center px-10 py-5 bg-white text-dark font-bold rounded-full text-lg hover:scale-105 hover:bg-accent transition-all duration-300 shadow-xl shadow-white/10"
             >
             Say Hello <ArrowRight className="ml-2 w-5 h-5" />
