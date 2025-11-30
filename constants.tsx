@@ -94,23 +94,23 @@ export const PROJECTS: Project[] = [
 export const EXPERIENCES: Experience[] = [
   {
     id: 1,
-    company: "TechFlow Systems",
-    role: "Senior Frontend Engineer",
-    period: "2021 - Present",
-    description: "Leading a team of 5 developers in migrating legacy Angular codebase to React. Improved site performance by 40%."
+    company: "Austin",
+    role: "Full Stack Developer",
+    period: "2024 - Present",
+    description: "Leading a team of 3 developers in migrating legacy HTML codebase to Next.js. Improved site performance by 40%."
   },
   {
     id: 2,
-    company: "Creative Solutions Inc.",
-    role: "Full Stack Developer",
-    period: "2018 - 2021",
+    company: "PIXDYNE",
+    role: "Founder & Lead Developer",
+    period: "2023 - Present",
     description: "Developed and maintained multiple client-facing web applications. Implemented CI/CD pipelines to streamline deployment."
   },
   {
     id: 3,
     company: "StartUp Alpha",
     role: "Junior Developer",
-    period: "2017 - 2018",
+    period: "2021 - 2023",
     description: "Collaborated with designers to implement responsive UI components. Assisted in backend API development using Express."
   }
 ];
