@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Syne, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -108,6 +109,7 @@ export default function RootLayout({
       <body className="bg-dark text-slate-200 antialiased">
         <div className="scanlines" />
         <div className="relative z-10">{children}</div>
+        <Analytics />
       </body>
     </html>
   );
