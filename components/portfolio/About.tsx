@@ -6,7 +6,7 @@ import { User, Code } from "lucide-react";
 import { BIO, SKILLS } from "@/lib/constants";
 
 export default function About() {
-  const [imageKey, setImageKey] = useState(99);
+  const [imageKey, setImageKey] = useState(20);
 
   const handleImageError = useCallback(() => {
     setImageKey((prev) => prev + 1);
