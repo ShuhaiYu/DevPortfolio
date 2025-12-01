@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+/* ===== Tailwind v4 Theme Configuration ===== */
+@theme {
+  /* Colors - Cyberpunk Palette */
+  --color-primary: #00f0ff;
+  --color-secondary: #7000df;
+  --color-accent: #ff003c;
+  --color-dark: #050505;
+  --color-surface: #0a0a0a;
+
+  /* Fonts */
+  --font-sans: "Space Grotesk", sans-serif;
+  --font-heading: "Syne", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Animations */
+  --animate-blob: blob 10s infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-fade-in: fadeIn 1s ease-out forwards;
+  --animate-slide-up: slideUp 0.8s ease-out forwards;
+  --animate-pulse-fast: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  /* Keyframes */
+  @keyframes blob {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.2); }
+    66% { transform: translate(-20px, 20px) scale(0.8); }
+    100% { transform: translate(0px, 0px) scale(1); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    0% { opacity: 0; transform: translateY(40px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* ===== Global Styles ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-dark);
+  color: #e2e8f0;
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: var(--color-primary);
+  color: black;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border: 1px solid #333;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* ===== CRT Scanline Effect ===== */
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0) 50%,
+    rgba(0,0,0,0.2) 50%,
+    rgba(0,0,0,0.2)
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.15;
+}
+
+/* ===== Glitch Text Effect ===== */
+.glitch-text {
+  position: relative;
+}
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -1px 0 var(--color-accent);
+  clip: rect(24px, 550px, 90px, 0);
+  animation: glitch-anim 3s infinite linear alternate-reverse;
+}
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -1px 0 var(--color-primary);
+  clip: rect(85px, 550px, 140px, 0);
+  animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(14px, 9999px, 127px, 0); }
+  20% { clip: rect(46px, 9999px, 13px, 0); }
+  40% { clip: rect(127px, 9999px, 57px, 0); }
+  60% { clip: rect(38px, 9999px, 103px, 0); }
+  80% { clip: rect(70px, 9999px, 20px, 0); }
+  100% { clip: rect(97px, 9999px, 66px, 0); }
+}
+
+/* ===== Glass Panel Effect ===== */
+.glass-panel {
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ===== Blog Typography - Cyberpunk Style ===== */
+.prose-cyber {
+  --tw-prose-body: #cbd5e1;
+  --tw-prose-headings: #ffffff;
+  --tw-prose-links: var(--color-primary);
+  --tw-prose-bold: #ffffff;
+  --tw-prose-code: var(--color-primary);
+  --tw-prose-pre-bg: var(--color-surface);
+  --tw-prose-pre-code: #cbd5e1;
+}
+
+.prose-cyber h1,
+.prose-cyber h2,
+.prose-cyber h3 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+.prose-cyber a {
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+  transition: all 0.3s;
+}
+
+.prose-cyber a:hover {
+  border-color: var(--color-primary);
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.prose-cyber pre {
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  position: relative;
+}
+
+.prose-cyber code {
+  font-family: var(--font-mono);
+}
+
+/* ===== Blog Card Hover Effect ===== */
+.blog-card {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.blog-card:hover {
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.1),
+              inset 0 0 20px rgba(0, 240, 255, 0.05);
+}

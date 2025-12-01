@@ -1,24 +1,38 @@
 {
-  "name": "devportfolio.ai",
+  "name": "devportfolio",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
   },
   "dependencies": {
     "@google/genai": "^1.30.0",
+    "@portabletext/react": "^3.2.0",
+    "@sanity/client": "^6.24.1",
+    "@sanity/code-input": "^6.0.3",
+    "@sanity/image-url": "^1.1.0",
+    "@sanity/vision": "^4.19.0",
     "lucide-react": "^0.554.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "three": "^0.181.2"
+    "next": "16.0.6",
+    "next-sanity": "^11.6.10",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "sanity": "^4.19.0",
+    "styled-components": "^6.1.19",
+    "three": "^0.181.0"
   },
   "devDependencies": {
-    "@types/node": "^22.14.0",
-    "@vitejs/plugin-react": "^5.0.0",
-    "typescript": "~5.8.2",
-    "vite": "^6.2.0"
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/three": "^0.181.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.0.6",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }
