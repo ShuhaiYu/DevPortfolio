@@ -84,11 +84,11 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 2,
-    title: "Onlypix AI Chat",
+    title: "PixCode",
     description:
-      "An AI-powered chat application integrated with Novita's image generation API. Built with Next.js and Data Streaming for real-time interactions.",
-    technologies: ["Next.js", "i18n", "Novita API", "Supabase"],
-    imageUrl: "/images/onlypixai.png",
+      "An OpenAI-compatible API gateway connecting 100+ LLMs with one key. Access GPT-5, Claude 4.6, Gemini 3, DeepSeek, and more through a unified endpoint.",
+    technologies: ["Next.js", "TypeScript", "OpenAI API", "Tailwind"],
+    imageUrl: "/images/pixcode.png",
     demoUrl: "https://www.onlypixai.com/",
     repoUrl: "https://github.com/ShuhaiYu/botai",
   },
