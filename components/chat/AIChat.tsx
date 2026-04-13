@@ -76,7 +76,7 @@ export default function AIChat() {
       {/* Trigger Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-40 group flex items-center justify-center w-14 h-14 bg-dark border border-primary/60 text-primary rounded-full shadow-[0_0_15px_rgba(0,240,255,0.3)] hover:shadow-[0_0_30px_rgba(0,240,255,0.6)] hover:bg-primary hover:text-dark transition-all duration-300 ${
+        className={`fixed bottom-6 right-6 z-40 group flex items-center justify-center w-14 h-14 bg-dark border border-primary/60 text-primary rounded-full shadow-[0_0_15px_rgba(240,196,69,0.3)] hover:shadow-[0_0_30px_rgba(240,196,69,0.6)] hover:bg-primary hover:text-dark transition-all duration-300 ${
           isOpen ? "scale-0" : "scale-100"
         }`}
       >
@@ -102,14 +102,15 @@ export default function AIChat() {
           </div>
           <button
             onClick={() => setIsOpen(false)}
-            className="text-slate-400 hover:text-accent transition-colors"
+            aria-label="Close chat"
+            className="inline-flex items-center justify-center w-11 h-11 -m-3 text-slate-400 hover:text-accent transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Messages Area */}
-        <div className="h-[450px] overflow-y-auto p-4 space-y-4 font-mono text-sm bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
+        <div className="h-[450px] overflow-y-auto p-4 space-y-4 font-mono text-sm">
           {messages.map((msg) => (
             <div
               key={msg.id}
@@ -130,7 +131,7 @@ export default function AIChat() {
                 className={`max-w-[80%] p-3 rounded-lg text-xs md:text-sm leading-relaxed border ${
                   msg.role === "user"
                     ? "border-white/10 bg-white/5 text-slate-200"
-                    : "border-primary/20 bg-primary/5 text-primary shadow-[0_0_10px_rgba(0,240,255,0.1)]"
+                    : "border-primary/20 bg-primary/5 text-primary shadow-[0_0_10px_rgba(240,196,69,0.1)]"
                 }`}
               >
                 {msg.text}
@@ -156,6 +157,7 @@ export default function AIChat() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyPress}
               placeholder="Type command..."
+              aria-label="Chat message"
               className="flex-1 bg-transparent text-white text-sm font-mono focus:outline-none placeholder-slate-600"
             />
             <button

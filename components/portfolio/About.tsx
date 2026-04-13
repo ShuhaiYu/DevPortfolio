@@ -1,22 +1,13 @@
-"use client";
-
-import { useState, useCallback } from "react";
 import Image from "next/image";
 import { User, Code } from "lucide-react";
-import { BIO, SKILLS } from "@/lib/constants";
+import { BIO, SKILLS, EXPERIENCES, PROJECTS } from "@/lib/constants";
 
 export default function About() {
-  const [imageKey, setImageKey] = useState(20);
-
-  const handleImageError = useCallback(() => {
-    setImageKey((prev) => prev + 1);
-  }, []);
-
-  const stats = [
-    { label: "INTELLIGENCE", value: 98, color: "bg-primary" },
-    { label: "AGILITY", value: 92, color: "bg-accent" },
-    { label: "ENDURANCE", value: 88, color: "bg-secondary" },
-    { label: "CREATIVITY", value: 95, color: "bg-white" },
+  const facts = [
+    { label: "Based", value: "Melbourne, AU" },
+    { label: "Stack depth", value: `${SKILLS.length} technologies` },
+    { label: "Shipped", value: `${PROJECTS.length}+ featured projects` },
+    { label: "Experience", value: `${EXPERIENCES.length} roles, 6+ years` },
   ];
 
   return (
@@ -47,64 +38,55 @@ export default function About() {
                   <div className="h-[1px] w-full bg-primary/30 mb-2 sm:mb-4"></div>
                   <div className="flex justify-between font-mono text-[10px] sm:text-xs text-primary/80">
                     <span>STATUS: ONLINE</span>
-                    <span>LOC: SERVER_01</span>
+                    <span>LOC: MEL_01</span>
                   </div>
                 </div>
               </div>
 
-              {/* Profile Image */}
+              {/* Local SVG placeholder (no external dependency) */}
               <Image
-                src={`https://picsum.photos/800/1000?random=${imageKey}`}
-                alt="Felix Yu - Full Stack Developer"
+                src="/images/operator-placeholder.svg"
+                alt="Felix Yu — Operator profile visual"
                 fill
-                className="object-cover filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700"
-                onError={handleImageError}
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover"
               />
-              <div className="absolute inset-0 bg-primary/20 mix-blend-hard-light opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>
 
             {/* Decorative Backdrop */}
             <div className="absolute -top-4 -right-4 w-full h-full border border-dashed border-white/20 -z-10 hidden sm:block"></div>
           </div>
 
-          {/* Right: Stats & Bio */}
+          {/* Right: Bio & Facts */}
           <div className="w-full lg:w-7/12">
             <div className="flex items-center gap-4 mb-6 sm:mb-8">
               <div className="p-2 bg-white/5 rounded border border-white/10">
                 <User className="w-5 h-5 text-primary" />
               </div>
               <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white">
-                OPERATOR <span className="text-slate-600">PROFILE</span>
+                OPERATOR <span className="text-slate-500">PROFILE</span>
               </h2>
             </div>
 
-            <p className="text-base sm:text-lg text-slate-400 leading-relaxed mb-8 sm:mb-10 border-l-2 border-accent/50 pl-4 sm:pl-6">
+            <p className="text-base sm:text-lg text-slate-300 leading-relaxed mb-10 sm:mb-12 max-w-[65ch]">
               {BIO}
             </p>
 
-            {/* Stats Bars */}
-            <div className="space-y-5 sm:space-y-6 mb-10 sm:mb-12">
-              {stats.map((stat) => (
-                <div key={stat.label}>
-                  <div className="flex justify-between mb-2">
-                    <span className="font-mono text-[10px] sm:text-xs tracking-widest text-slate-400">
-                      {stat.label}
-                    </span>
-                    <span className="font-mono text-[10px] sm:text-xs text-primary">
-                      {stat.value}%
-                    </span>
-                  </div>
-                  <div className="h-1.5 sm:h-2 w-full bg-white/5 rounded-full overflow-hidden">
-                    <div
-                      className={`h-full ${stat.color} shadow-[0_0_10px_currentColor]`}
-                      style={{ width: `${stat.value}%` }}
-                    ></div>
-                  </div>
+            {/* Real facts — not decorative metrics. Definition list for semantics. */}
+            <dl className="grid grid-cols-2 gap-x-8 gap-y-6 mb-10 sm:mb-12 max-w-xl border-t border-white/5 pt-8">
+              {facts.map((fact) => (
+                <div key={fact.label}>
+                  <dt className="font-mono text-[10px] sm:text-xs tracking-widest text-slate-500 uppercase mb-1">
+                    {fact.label}
+                  </dt>
+                  <dd className="text-white text-base sm:text-lg font-heading tracking-tight">
+                    {fact.value}
+                  </dd>
                 </div>
               ))}
-            </div>
+            </dl>
 
-            {/* Mini Tech Grid */}
+            {/* Tech stack */}
             <div>
               <h3 className="font-mono text-xs text-slate-500 mb-4 uppercase tracking-widest">
                 // Equipped Modules
@@ -113,7 +95,7 @@ export default function About() {
                 {SKILLS.slice(0, 10).map((skill) => (
                   <span
                     key={skill}
-                    className="px-3 py-1 bg-surface border border-white/10 rounded text-[10px] sm:text-xs font-mono text-slate-300 hover:border-primary/50 hover:text-primary transition-colors cursor-crosshair"
+                    className="px-3 py-1 bg-surface border border-white/10 rounded text-[10px] sm:text-xs font-mono text-slate-300 hover:border-primary/50 hover:text-primary transition-colors cursor-default"
                   >
                     {skill}
                   </span>

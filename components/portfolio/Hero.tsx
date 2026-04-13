@@ -18,13 +18,13 @@ export default function Hero() {
     >
       {/* Cyber Grid Background */}
       <div className="absolute inset-0 w-full h-full perspective-[1000px] overflow-hidden z-0">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,240,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(0,240,255,0.1)_1px,transparent_1px)] bg-[size:60px_60px] [transform:rotateX(60deg)_translateY(-20%)_scale(2)] opacity-20 animate-pulse-fast origin-top"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(240,196,69,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(240,196,69,0.1)_1px,transparent_1px)] bg-[size:60px_60px] [transform:rotateX(60deg)_translateY(-20%)_scale(2)] opacity-20 animate-pulse-fast origin-top"></div>
       </div>
 
       {/* Floating Lines Background */}
       <div className="absolute inset-0 w-full h-full z-[1] opacity-40">
         <FloatingLines
-          linesGradient={["#00f0ff", "#5588ee", "#7000df"]}
+          linesGradient={["#f0c445", "#c08030", "#744010"]}
           enabledWaves={["middle", "bottom"]}
           lineCount={[10, 12]}
           lineDistance={[7, 5]}
@@ -64,7 +64,7 @@ export default function Hero() {
             DIGITAL
           </span>
           <span
-            className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-secondary animate-slide-up glitch-text"
+            className="block text-primary animate-slide-up glitch-text"
             data-text="ARCHITECT"
             style={{ animationDelay: "0.4s" }}
           >
@@ -90,7 +90,7 @@ export default function Hero() {
         >
           <a
             href="#projects"
-            className="group relative px-8 py-4 bg-primary text-dark font-bold text-base sm:text-lg rounded-sm overflow-hidden hover:shadow-[0_0_20px_rgba(0,240,255,0.5)] transition-all duration-300 text-center"
+            className="group relative px-8 py-4 bg-primary text-dark font-bold text-base sm:text-lg rounded-sm overflow-hidden hover:shadow-[0_0_20px_rgba(240,196,69,0.5)] transition-all duration-300 text-center"
           >
             <span className="relative z-10 flex items-center justify-center gap-2">
               View Projects{" "}

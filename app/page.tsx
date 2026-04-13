@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-dark text-slate-200 overflow-x-hidden">
       <Navbar />
-      <main>
+      <main id="main">
         <Hero />
         <About />
         <CodeStream />

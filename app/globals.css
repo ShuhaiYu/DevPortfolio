@@ -2,12 +2,17 @@
 
 /* ===== Tailwind v4 Theme Configuration ===== */
 @theme {
-  /* Colors - Cyberpunk Palette */
-  --color-primary: #00f0ff;
-  --color-secondary: #7000df;
-  --color-accent: #ff003c;
-  --color-dark: #050505;
-  --color-surface: #0a0a0a;
+  /* Colors - Amber Terminal Palette (editorial cyberpunk) */
+  /* Primary: oklch(82% 0.17 85) — amber-gold, vintage CRT heritage */
+  --color-primary: #f0c445;
+  /* Secondary: oklch(55% 0.12 70) — burnt orange */
+  --color-secondary: #a06b28;
+  /* Accent: oklch(65% 0.19 25) — muted coral, signal/alert only */
+  --color-accent: #d24b3e;
+  /* Dark: oklch(12% 0.008 70) — warm-tinted near-black, not pure */
+  --color-dark: #0c0a07;
+  /* Surface: oklch(17% 0.012 70) — warm surface */
+  --color-surface: #16120d;
 
   /* Fonts */
   --font-sans: "Space Grotesk", sans-serif;
@@ -55,6 +60,7 @@ body {
   color: #e2e8f0;
   overflow-x: hidden;
   font-family: var(--font-sans);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -62,6 +68,25 @@ body {
 ::selection {
   background-color: var(--color-primary);
   color: black;
+}
+
+/* ===== Focus Indicators (Accessibility) ===== */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ===== Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Custom Scrollbar */
@@ -115,23 +140,23 @@ body {
 .glitch-text::before {
   left: 2px;
   text-shadow: -1px 0 var(--color-accent);
-  clip: rect(24px, 550px, 90px, 0);
+  clip-path: inset(20% 0 50% 0);
   animation: glitch-anim 3s infinite linear alternate-reverse;
 }
 .glitch-text::after {
   left: -2px;
   text-shadow: -1px 0 var(--color-primary);
-  clip: rect(85px, 550px, 140px, 0);
+  clip-path: inset(65% 0 10% 0);
   animation: glitch-anim 2s infinite linear alternate-reverse;
 }
 
 @keyframes glitch-anim {
-  0% { clip: rect(14px, 9999px, 127px, 0); }
-  20% { clip: rect(46px, 9999px, 13px, 0); }
-  40% { clip: rect(127px, 9999px, 57px, 0); }
-  60% { clip: rect(38px, 9999px, 103px, 0); }
-  80% { clip: rect(70px, 9999px, 20px, 0); }
-  100% { clip: rect(97px, 9999px, 66px, 0); }
+  0% { clip-path: inset(10% 0 70% 0); }
+  20% { clip-path: inset(35% 0 55% 0); }
+  40% { clip-path: inset(50% 0 40% 0); }
+  60% { clip-path: inset(25% 0 65% 0); }
+  80% { clip-path: inset(60% 0 30% 0); }
+  100% { clip-path: inset(75% 0 15% 0); }
 }
 
 /* ===== Glass Panel Effect ===== */
@@ -157,21 +182,22 @@ body {
 .prose-cyber h3 {
   font-family: var(--font-heading);
   letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 
 .prose-cyber a {
   text-decoration: none;
-  border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+  border-bottom: 1px solid rgba(240, 196, 69, 0.3);
   transition: all 0.3s;
 }
 
 .prose-cyber a:hover {
   border-color: var(--color-primary);
-  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+  text-shadow: 0 0 10px rgba(240, 196, 69, 0.5);
 }
 
 .prose-cyber pre {
-  border: 1px solid rgba(0, 240, 255, 0.2);
+  border: 1px solid rgba(240, 196, 69, 0.2);
   position: relative;
 }
 
@@ -185,7 +211,7 @@ body {
 }
 
 .blog-card:hover {
-  border-color: rgba(0, 240, 255, 0.4);
-  box-shadow: 0 0 30px rgba(0, 240, 255, 0.1),
-              inset 0 0 20px rgba(0, 240, 255, 0.05);
+  border-color: rgba(240, 196, 69, 0.4);
+  box-shadow: 0 0 30px rgba(240, 196, 69, 0.1),
+              inset 0 0 20px rgba(240, 196, 69, 0.05);
 }

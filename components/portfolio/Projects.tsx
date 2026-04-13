@@ -9,7 +9,7 @@ export default function Projects() {
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 sm:mb-20">
           <div>
             <h2 className="text-4xl sm:text-5xl md:text-7xl font-heading font-bold text-white mb-4 tracking-tighter">
-              SELECTED <span className="text-slate-700">WORK</span>
+              SELECTED <span className="text-slate-500">WORK</span>
             </h2>
           </div>
           <div className="text-right hidden md:block">
@@ -21,105 +21,79 @@ export default function Projects() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8">
-          {PROJECTS.map((project, index) => {
-            const isFirst = index === 0;
-            const isSecond = index === 1;
-            const isThird = index === 2;
+        {/* Uniform 2-col grid — larger landscape cards. Each animates image-to-full + text overlay on hover. */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          {PROJECTS.map((project, index) => (
+            <article
+              key={project.id}
+              className="group relative aspect-[3/2] rounded-2xl overflow-hidden bg-surface border border-white/5 hover:border-primary/40 transition-colors duration-500"
+            >
+              {/* Image layer — grows and colorizes on hover */}
+              <Image
+                src={project.imageUrl}
+                alt={project.title}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="object-cover filter grayscale-[0.6] brightness-75 scale-100 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-110 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              />
 
-            const colSpan = isFirst
-              ? "md:col-span-8"
-              : isSecond
-              ? "md:col-span-4"
-              : "md:col-span-12";
+              {/* Solid surface panel covering bottom 55% — fades out on hover to reveal full image */}
+              <div className="absolute inset-x-0 bottom-0 h-[55%] bg-surface group-hover:opacity-0 transition-opacity duration-500 pointer-events-none" />
 
-            const containerDirection = isSecond
-              ? "flex-col"
-              : "flex-col md:flex-row";
+              {/* Hover gradient overlay — provides text contrast once panel is gone */}
+              <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-            const imageContainerClass = isSecond
-              ? "w-full h-56 sm:h-64"
-              : "w-full h-56 sm:h-72 md:h-auto md:w-1/2";
+              {/* Number badge — always visible, top-left */}
+              <span className="absolute top-4 left-4 z-20 font-mono text-[10px] sm:text-xs text-accent px-2 py-1 border border-accent/30 rounded-full bg-dark/60 backdrop-blur-sm">
+                {String(index + 1).padStart(2, "0")}
+              </span>
 
-            const imageOrder = isThird ? "md:order-2" : "order-1";
-            const contentOrder = isThird ? "md:order-1" : "order-2";
-            const contentWidth = isSecond ? "w-full" : "md:w-1/2";
-
-            return (
-              <div
-                key={project.id}
-                className={`${colSpan} group relative bg-surface border border-white/5 rounded-2xl sm:rounded-3xl overflow-hidden hover:border-primary/30 transition-colors duration-500 flex ${containerDirection}`}
-              >
-                {/* Hover Glow Effect */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-3xl opacity-0 group-hover:opacity-20 blur-2xl transition duration-500 pointer-events-none"></div>
-
-                {/* Image Section */}
-                <div
-                  className={`${imageContainerClass} ${imageOrder} overflow-hidden relative flex-shrink-0`}
+              {/* Action buttons — appear on hover, top-right */}
+              <div className="absolute top-4 right-4 z-20 flex gap-2 opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out">
+                <a
+                  href={project.repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`View ${project.title} source on GitHub`}
+                  className="inline-flex items-center justify-center w-10 h-10 bg-dark/70 backdrop-blur-sm rounded-full text-white hover:bg-primary hover:text-dark transition-colors"
                 >
-                  <div className="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <Image
-                    src={project.imageUrl}
-                    alt={project.title}
-                    fill
-                    className="object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
-                  />
-                </div>
-
-                {/* Content Section */}
-                <div
-                  className={`p-6 sm:p-8 flex flex-col justify-between ${contentWidth} ${contentOrder} flex-1`}
+                  <Github size={16} />
+                </a>
+                <a
+                  href={project.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Open ${project.title} live demo`}
+                  className="inline-flex items-center justify-center w-10 h-10 bg-dark/70 backdrop-blur-sm rounded-full text-white hover:bg-accent hover:text-dark transition-colors"
                 >
-                  <div>
-                    <div className="flex justify-between items-start mb-4">
-                      <span className="font-mono text-[10px] sm:text-xs text-accent px-2 py-1 border border-accent/30 rounded-full">
-                        0{index + 1}
-                      </span>
-                      <div className="flex gap-3 relative z-20">
-                        <a
-                          href={project.repoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-2 bg-white/5 rounded-full hover:bg-white/20 text-white transition-colors"
-                        >
-                          <Github size={16} className="sm:w-[18px] sm:h-[18px]" />
-                        </a>
-                        <a
-                          href={project.demoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-2 bg-white/5 rounded-full hover:bg-accent hover:text-dark text-white transition-colors"
-                        >
-                          <ArrowUpRight
-                            size={16}
-                            className="sm:w-[18px] sm:h-[18px]"
-                          />
-                        </a>
-                      </div>
-                    </div>
+                  <ArrowUpRight size={16} />
+                </a>
+              </div>
 
-                    <h3 className="text-2xl sm:text-3xl font-heading font-bold text-white mb-3 group-hover:text-primary transition-colors">
-                      {project.title}
-                    </h3>
-                    <p className="text-slate-400 text-sm leading-relaxed mb-6">
-                      {project.description}
-                    </p>
-                  </div>
+              {/* Content block — pinned to bottom. Title shifts up on hover, description color brightens, tags slide in. */}
+              <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 z-10">
+                <h3 className="text-xl sm:text-2xl font-heading font-bold text-white mb-2 tracking-tight leading-tight transform group-hover:-translate-y-1 group-hover:text-primary transition-all duration-500 ease-out">
+                  {project.title}
+                </h3>
 
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {project.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="text-[10px] sm:text-xs font-medium text-slate-300 font-mono bg-white/5 px-2 py-1 rounded"
-                      >
-                        #{tech}
-                      </span>
-                    ))}
-                  </div>
+                <p className="text-slate-400 text-sm leading-relaxed line-clamp-2 group-hover:text-slate-200 transition-colors duration-500">
+                  {project.description}
+                </p>
+
+                {/* Tags — stagger-reveal on hover */}
+                <div className="flex flex-wrap gap-2 mt-3 opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100 ease-out">
+                  {project.technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className="text-[10px] font-mono bg-white/10 backdrop-blur-sm text-slate-200 px-2 py-1 rounded"
+                    >
+                      #{tech}
+                    </span>
+                  ))}
                 </div>
               </div>
-            );
-          })}
+            </article>
+          ))}
         </div>
 
         <div className="mt-12 text-center md:text-left">

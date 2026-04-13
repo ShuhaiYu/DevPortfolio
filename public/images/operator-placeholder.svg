@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1508"/>
+      <stop offset="50%" stop-color="#0c0a07"/>
+      <stop offset="100%" stop-color="#0c0a07"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="45%">
+      <stop offset="0%" stop-color="#f0c445" stop-opacity="0.18"/>
+      <stop offset="60%" stop-color="#f0c445" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#f0c445" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#f0c445" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <rect width="800" height="1000" fill="url(#grid)"/>
+  <rect width="800" height="1000" fill="url(#glow)"/>
+
+  <!-- Concentric geometric portrait silhouette -->
+  <g transform="translate(400 450)" opacity="0.7">
+    <circle r="180" fill="none" stroke="#f0c445" stroke-opacity="0.15" stroke-width="1"/>
+    <circle r="140" fill="none" stroke="#f0c445" stroke-opacity="0.25" stroke-width="1"/>
+    <circle r="100" fill="none" stroke="#f0c445" stroke-opacity="0.4" stroke-width="1"/>
+    <circle r="60" fill="none" stroke="#f0c445" stroke-opacity="0.6" stroke-width="1.5"/>
+    <circle r="8" fill="#f0c445" fill-opacity="0.8"/>
+  </g>
+
+  <!-- Horizontal scan line -->
+  <line x1="0" y1="500" x2="800" y2="500" stroke="#f0c445" stroke-opacity="0.25" stroke-width="1"/>
+
+  <!-- Corner brackets -->
+  <g stroke="#f0c445" stroke-opacity="0.35" stroke-width="2" fill="none">
+    <path d="M 40 40 L 40 80 M 40 40 L 80 40"/>
+    <path d="M 760 40 L 760 80 M 760 40 L 720 40"/>
+    <path d="M 40 960 L 40 920 M 40 960 L 80 960"/>
+    <path d="M 760 960 L 760 920 M 760 960 L 720 960"/>
+  </g>
+</svg>

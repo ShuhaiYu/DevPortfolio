@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Menu, X, Zap } from "lucide-react";
 import { OWNER_NAME } from "@/lib/constants";
@@ -8,12 +8,51 @@ import { OWNER_NAME } from "@/lib/constants";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
+  const menuPanelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Focus management + ESC close for mobile menu
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // Focus first link when menu opens
+    const firstLink = menuPanelRef.current?.querySelector<HTMLElement>(
+      "a[href]"
+    );
+    firstLink?.focus();
+
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+        menuToggleRef.current?.focus();
+        return;
+      }
+      // Simple focus trap: cycle between first and last focusable link
+      if (e.key === "Tab" && menuPanelRef.current) {
+        const focusables = menuPanelRef.current.querySelectorAll<HTMLElement>(
+          "a[href]"
+        );
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [isOpen]);
 
   const navLinks = [
     { name: "Profile", href: "#about" },
@@ -28,7 +67,7 @@ export default function Navbar() {
       <nav
         className={`pointer-events-auto transition-all duration-500 ease-out ${
           scrolled
-            ? "bg-dark/90 backdrop-blur-md border border-primary/20 shadow-[0_0_30px_rgba(0,240,255,0.1)] rounded-2xl py-3 px-4 sm:px-6 w-full max-w-5xl"
+            ? "bg-dark/90 backdrop-blur-md border border-primary/20 shadow-[0_0_30px_rgba(240,196,69,0.1)] rounded-2xl py-3 px-4 sm:px-6 w-full max-w-5xl"
             : "bg-transparent w-full max-w-7xl py-4"
         }`}
       >
@@ -83,9 +122,12 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <div className="md:hidden pointer-events-auto">
             <button
+              ref={menuToggleRef}
               onClick={() => setIsOpen(!isOpen)}
               className="text-white p-2 hover:text-primary transition-colors backdrop-blur-sm bg-white/5 rounded-lg border border-white/10"
-              aria-label="Toggle menu"
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
             >
               {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -94,7 +136,14 @@ export default function Navbar() {
 
         {/* Mobile Menu Dropdown */}
         {isOpen && (
-          <div className="absolute top-full left-0 w-full mt-4 p-2 md:hidden pointer-events-auto">
+          <div
+            id="mobile-menu"
+            ref={menuPanelRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site navigation"
+            className="absolute top-full left-0 w-full mt-4 p-2 md:hidden pointer-events-auto"
+          >
             <div className="glass-panel bg-black/95 backdrop-blur-2xl rounded-2xl p-6 flex flex-col space-y-4 animate-fade-in border border-primary/20 shadow-[0_10px_40px_rgba(0,0,0,0.9)]">
               {[...navLinks, { name: "Contact", href: "#contact" }].map(
                 (link) => (

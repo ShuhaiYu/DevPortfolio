@@ -66,10 +66,11 @@ sanity/
 
 ### Styling
 Custom theme colors (defined in `app/globals.css`):
-- `primary`: #00f0ff (Cyber Cyan)
-- `secondary`: #7000df (Cyber Purple)
-- `accent`: #ff003c (Cyber Red)
-- `dark`: #050505 (background)
+- `primary`: #f0c445 (Amber Gold — vintage CRT terminal heritage)
+- `secondary`: #a06b28 (Burnt Orange)
+- `accent`: #d24b3e (Muted Coral — signal/alert)
+- `dark`: #0c0a07 (warm-tinted near-black background)
+- `surface`: #16120d (warm surface)
 
 ### Sanity Configuration
 - Project ID: 1efjjikg

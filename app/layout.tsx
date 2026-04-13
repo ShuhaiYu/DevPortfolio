@@ -107,6 +107,12 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-dark text-slate-200 antialiased">
+        <a
+          href="#main"
+          className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:top-4 focus-visible:left-4 focus-visible:z-[100] focus-visible:px-4 focus-visible:py-2 focus-visible:bg-primary focus-visible:text-dark focus-visible:font-bold focus-visible:rounded"
+        >
+          Skip to main content
+        </a>
         <div className="scanlines" />
         <div className="relative z-10">{children}</div>
         <Analytics />

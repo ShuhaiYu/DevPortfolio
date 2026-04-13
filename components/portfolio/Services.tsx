@@ -3,57 +3,62 @@ import { Icon } from "@/components/ui/Icon";
 
 export default function Services() {
   return (
-    <section id="services" className="py-24 bg-dark relative">
+    <section id="services" className="py-28 sm:py-36 bg-dark relative">
       {/* Grid Background */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-white/5 border border-white/10">
-            <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-            <span className="font-mono text-xs text-slate-300 uppercase tracking-widest">
-              System Capabilities
-            </span>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Left-aligned section header (not centered) */}
+        <header className="grid md:grid-cols-12 gap-6 mb-16 sm:mb-20 items-end">
+          <div className="md:col-span-8">
+            <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full bg-white/5 border border-white/10">
+              <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+              <span className="font-mono text-xs text-slate-300 uppercase tracking-widest">
+                System Capabilities
+              </span>
+            </div>
+            <h2 className="text-5xl md:text-7xl font-heading font-bold text-white tracking-tighter leading-[0.95]">
+              Active <span className="text-primary">Protocols</span>
+            </h2>
           </div>
-          <h2 className="text-5xl md:text-6xl font-heading font-bold text-white mb-6">
-            ACTIVE{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-              PROTOCOLS
-            </span>
-          </h2>
-          <p className="text-slate-400">
+          <p className="md:col-span-4 text-slate-400 max-w-sm md:text-right md:pb-3">
             Deploying high-end digital solutions with surgical precision.
           </p>
-        </div>
+        </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Editorial numbered list — no cards, space and rhythm only */}
+        <div className="border-t border-white/5">
           {SERVICES.map((service, index) => (
-            <div
+            <article
               key={index}
-              className="group relative p-8 bg-surface/50 backdrop-blur-sm border border-white/5 hover:border-primary/50 transition-all duration-500 hover:-translate-y-2 overflow-hidden"
+              className="group grid md:grid-cols-12 gap-4 md:gap-8 py-8 sm:py-10 border-b border-white/5 items-start hover:bg-primary/[0.02] transition-colors"
             >
-              {/* Hover Gradient Background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="md:col-span-1 flex items-baseline">
+                <span className="font-mono text-xs text-primary/70 tracking-widest">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+              </div>
 
-              <div className="relative z-10">
-                <div className="w-14 h-14 mb-6 flex items-center justify-center bg-dark border border-white/10 group-hover:border-primary group-hover:scale-110 transition-all duration-500 rounded-lg text-white group-hover:text-primary group-hover:shadow-[0_0_20px_rgba(0,240,255,0.3)]">
-                  <Icon name={service.iconName} size={32} />
-                </div>
-
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">
+              <div className="md:col-span-4">
+                <h3 className="text-2xl sm:text-3xl font-heading font-bold text-white group-hover:text-primary transition-colors tracking-tight leading-tight">
                   {service.title}
                 </h3>
+              </div>
 
-                <p className="text-sm text-slate-400 leading-relaxed">
+              <div className="md:col-span-6">
+                <p className="text-slate-400 text-base leading-relaxed max-w-prose">
                   {service.description}
                 </p>
               </div>
 
-              {/* Corner Accents */}
-              <div className="absolute top-0 right-0 p-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <div className="w-2 h-2 bg-primary"></div>
+              <div className="md:col-span-1 hidden md:flex justify-end pt-1 opacity-40 group-hover:opacity-100 transition-opacity">
+                <Icon
+                  name={service.iconName}
+                  size={20}
+                  className="text-slate-500 group-hover:text-primary transition-colors"
+                />
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>

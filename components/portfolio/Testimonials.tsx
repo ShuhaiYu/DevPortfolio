@@ -1,48 +1,71 @@
 import { TESTIMONIALS } from "@/lib/constants";
-import { MessageSquare, Quote } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 
 export default function Testimonials() {
+  const [featured, ...supporting] = TESTIMONIALS;
+
   return (
-    <section className="py-24 bg-dark border-t border-white/5 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-16">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-white flex items-center gap-4">
-            <MessageSquare className="text-secondary" />
-            INCOMING <span className="text-slate-700">TRANSMISSIONS</span>
+    <section className="py-24 sm:py-32 bg-dark border-t border-white/5 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Asymmetric header */}
+        <div className="flex items-end justify-between mb-16 sm:mb-20 gap-8">
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-white flex items-center gap-4 tracking-tight">
+            <MessageSquare className="text-secondary w-6 h-6" />
+            Incoming <span className="text-slate-500">Transmissions</span>
           </h2>
-          <div className="hidden md:block h-[1px] flex-1 bg-white/10 ml-8"></div>
+          <div className="hidden md:block font-mono text-xs text-slate-500 uppercase tracking-widest pb-2">
+            // {TESTIMONIALS.length} Records
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {TESTIMONIALS.map((t) => (
-            <div
-              key={t.id}
-              className="relative bg-surface p-8 border-l-2 border-slate-800 hover:border-accent transition-colors duration-300 group"
-            >
-              <Quote className="absolute top-6 right-6 text-white/5 w-12 h-12 group-hover:text-accent/10 transition-colors" />
-
-              <div className="mb-6 relative z-10">
-                <p className="text-slate-300 font-mono text-sm leading-loose">
-                  &quot;{t.text}&quot;
-                </p>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-900 rounded-full flex items-center justify-center text-xs font-bold text-white border border-white/10">
-                  {t.name.charAt(0)}
-                </div>
-                <div>
-                  <div className="text-white font-bold text-sm">{t.name}</div>
-                  <div className="text-xs font-mono text-primary">
-                    {t.role} @ {t.company}
-                  </div>
-                </div>
-              </div>
-
-              {/* Tech Lines */}
-              <div className="absolute bottom-0 right-0 w-20 h-[2px] bg-gradient-to-l from-accent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        {/* Featured + supporting — magazine pull-quote layout */}
+        <div className="grid md:grid-cols-12 gap-10 md:gap-16">
+          {/* Featured large quote */}
+          <figure className="md:col-span-7 relative">
+            <div className="absolute -top-6 -left-2 font-heading text-7xl sm:text-8xl text-primary/30 leading-none select-none">
+              &ldquo;
             </div>
-          ))}
+            <blockquote className="relative pt-6">
+              <p className="font-heading text-2xl sm:text-3xl md:text-4xl text-white leading-[1.25] tracking-tight">
+                {featured.text}
+              </p>
+            </blockquote>
+            <figcaption className="mt-8 flex items-center gap-4">
+              <div className="w-10 h-10 bg-surface border border-white/10 rounded-full flex items-center justify-center text-xs font-bold text-white">
+                {featured.name.charAt(0)}
+              </div>
+              <div>
+                <div className="text-white font-bold text-sm">{featured.name}</div>
+                <div className="text-xs font-mono text-primary">
+                  {featured.role} @ {featured.company}
+                </div>
+              </div>
+            </figcaption>
+          </figure>
+
+          {/* Supporting stacked quotes */}
+          <div className="md:col-span-5 flex flex-col gap-8 md:border-l md:border-white/5 md:pl-10">
+            {supporting.map((t) => (
+              <figure key={t.id} className="group">
+                <blockquote>
+                  <p className="text-slate-300 text-base leading-relaxed italic">
+                    &ldquo;{t.text}&rdquo;
+                  </p>
+                </blockquote>
+                <figcaption className="mt-4 flex items-center gap-3 pt-4 border-t border-white/5">
+                  <div className="w-8 h-8 bg-surface border border-white/10 rounded-full flex items-center justify-center text-[10px] font-bold text-white">
+                    {t.name.charAt(0)}
+                  </div>
+                  <div>
+                    <div className="text-white font-bold text-xs">{t.name}</div>
+                    <div className="text-[10px] font-mono text-slate-500">
+                      {t.role} @ {t.company}
+                    </div>
+                  </div>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
       </div>
     </section>

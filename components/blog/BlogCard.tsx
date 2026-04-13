@@ -27,6 +27,7 @@ export default function BlogCard({ post }: BlogCardProps) {
               src={urlFor(post.coverImage).width(600).height(340).url()}
               alt={post.title}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
               className="object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
             />
           ) : (
@@ -51,7 +52,7 @@ export default function BlogCard({ post }: BlogCardProps) {
                 {post.category.title}
               </span>
             )}
-            <span className="text-slate-600 text-xs font-mono">
+            <span className="text-slate-500 text-xs font-mono">
               {formatDate(post.publishedAt)}
             </span>
           </div>

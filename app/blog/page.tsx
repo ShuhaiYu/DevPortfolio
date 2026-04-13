@@ -26,7 +26,7 @@ export default async function BlogPage() {
   return (
     <div className="min-h-screen bg-dark text-slate-200">
       <Navbar />
-      <main>
+      <main id="main">
         <BlogHero />
 
         <section className="py-16 sm:py-24">

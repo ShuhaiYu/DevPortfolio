@@ -25,8 +25,8 @@ export default defineType({
       name: "color",
       title: "Color",
       type: "string",
-      description: "Hex color code (e.g., #00f0ff)",
-      initialValue: "#00f0ff",
+      description: "Hex color code (e.g., #f0c445)",
+      initialValue: "#f0c445",
     }),
   ],
 });

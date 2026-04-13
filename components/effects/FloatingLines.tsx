@@ -427,6 +427,22 @@ export default function FloatingLines({
       ro.observe(containerRef.current);
     }
 
+    // Pause render loop when canvas is off-screen to save GPU/battery.
+    // Uses a ref-held flag so the RAF callback can check cheaply on each frame.
+    const isVisibleRef = { current: true };
+    const io =
+      typeof IntersectionObserver !== "undefined"
+        ? new IntersectionObserver(
+            (entries) => {
+              isVisibleRef.current = entries[0]?.isIntersecting ?? true;
+            },
+            { rootMargin: "200px" }
+          )
+        : null;
+    if (io && containerRef.current) {
+      io.observe(containerRef.current);
+    }
+
     const handlePointerMove = (event: PointerEvent) => {
       const rect = renderer.domElement.getBoundingClientRect();
       const x = event.clientX - rect.left;
@@ -459,6 +475,13 @@ export default function FloatingLines({
 
     let raf = 0;
     const renderLoop = () => {
+      // Skip all shader work + GPU submission when the element is off-screen.
+      // Keeps a cheap RAF tick running so we resume immediately when visible.
+      if (!isVisibleRef.current) {
+        raf = requestAnimationFrame(renderLoop);
+        return;
+      }
+
       uniforms.iTime.value = clock.getElapsedTime();
 
       if (interactive) {
@@ -485,6 +508,9 @@ export default function FloatingLines({
       cancelAnimationFrame(raf);
       if (ro) {
         ro.disconnect();
+      }
+      if (io) {
+        io.disconnect();
       }
 
       if (interactive) {

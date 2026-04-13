@@ -76,7 +76,7 @@ const components = {
       <p className="text-slate-300 leading-relaxed mb-6">{children}</p>
     ),
     blockquote: ({ children }: { children?: React.ReactNode }) => (
-      <blockquote className="border-l-4 border-primary pl-6 my-8 text-slate-400 italic">
+      <blockquote className="my-10 text-xl text-white/75 italic leading-relaxed">
         {children}
       </blockquote>
     ),
@@ -151,7 +151,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         }}
       />
 
-      <main className="pt-24 pb-16">
+      <main id="main" className="pt-24 pb-16">
         {/* Back Link */}
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
           <Link
@@ -205,6 +205,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                 src={urlFor(post.coverImage).width(1200).height(675).url()}
                 alt={post.title}
                 fill
+                sizes="(max-width: 1024px) 100vw, 960px"
                 className="object-cover"
                 priority
               />

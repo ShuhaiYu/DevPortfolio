@@ -39,7 +39,8 @@ export default function Contact() {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-400 hover:text-accent transition-colors"
+              aria-label={`Visit ${link.platform} profile`}
+              className="inline-flex items-center justify-center w-11 h-11 -m-2 text-slate-400 hover:text-accent transition-colors"
             >
               <Icon name={link.iconName} size={20} />
             </a>
