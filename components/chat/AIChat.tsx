@@ -5,6 +5,7 @@ import { Send, X, MessageSquare, Bot, User, Terminal } from "lucide-react";
 import { sendMessageToGemini } from "@/lib/services/geminiService";
 import { OWNER_NAME } from "@/lib/constants";
 import type { ChatMessage } from "@/lib/types";
+import { gsap, useGSAP, EASE, prefersReducedMotion } from "@/lib/gsap";
 
 export default function AIChat() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +20,17 @@ export default function AIChat() {
     },
   ]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
+  useGSAP(() => {
+    if (!triggerRef.current) return;
+    if (prefersReducedMotion()) return;
+    gsap.fromTo(
+      triggerRef.current,
+      { scale: 0, rotate: -30 },
+      { scale: 1, rotate: 0, duration: 0.9, ease: EASE.elastic, delay: 2.5 },
+    );
+  });
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -75,6 +87,7 @@ export default function AIChat() {
     <>
       {/* Trigger Button */}
       <button
+        ref={triggerRef}
         onClick={() => setIsOpen(true)}
         className={`fixed bottom-6 right-6 z-40 group flex items-center justify-center w-14 h-14 bg-dark border border-primary/60 text-primary rounded-full shadow-[0_0_15px_rgba(240,196,69,0.3)] hover:shadow-[0_0_30px_rgba(240,196,69,0.6)] hover:bg-primary hover:text-dark transition-all duration-300 ${
           isOpen ? "scale-0" : "scale-100"

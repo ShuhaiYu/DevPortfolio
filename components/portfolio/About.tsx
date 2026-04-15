@@ -1,8 +1,15 @@
+"use client";
+
+import { useRef } from "react";
 import Image from "next/image";
 import { User, Code } from "lucide-react";
 import { BIO, SKILLS, EXPERIENCES, PROJECTS } from "@/lib/constants";
+import { gsap, useGSAP, EASE, prefersReducedMotion } from "@/lib/gsap";
+import ParallaxImage from "@/components/effects/ParallaxImage";
 
 export default function About() {
+  const rootRef = useRef<HTMLElement | null>(null);
+
   const facts = [
     { label: "Based", value: "Melbourne, AU" },
     { label: "Stack depth", value: `${SKILLS.length} technologies` },
@@ -10,8 +17,70 @@ export default function About() {
     { label: "Experience", value: `${EXPERIENCES.length} roles, 6+ years` },
   ];
 
+  useGSAP(
+    () => {
+      const root = rootRef.current;
+      if (!root) return;
+
+      const header = root.querySelector<HTMLElement>("[data-about-header]");
+      const bio = root.querySelector<HTMLElement>("[data-about-bio]");
+      const factItems = root.querySelectorAll<HTMLElement>("[data-about-fact]");
+      const chips = root.querySelectorAll<HTMLElement>("[data-about-chip]");
+
+      if (prefersReducedMotion()) {
+        gsap.set([header, bio, ...Array.from(factItems), ...Array.from(chips)], {
+          opacity: 1,
+          y: 0,
+        });
+        return;
+      }
+
+      gsap.fromTo(
+        [header, bio],
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: EASE.out,
+          scrollTrigger: { trigger: root, start: "top 70%" },
+        },
+      );
+
+      gsap.fromTo(
+        factItems,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.08,
+          ease: EASE.out,
+          scrollTrigger: { trigger: root, start: "top 55%" },
+        },
+      );
+
+      gsap.fromTo(
+        chips,
+        { opacity: 0, y: 10, scale: 0.9 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.4,
+          stagger: 0.03,
+          ease: EASE.out,
+          scrollTrigger: { trigger: root, start: "top 50%" },
+        },
+      );
+    },
+    { scope: rootRef },
+  );
+
   return (
     <section
+      ref={rootRef}
       id="about"
       className="py-20 sm:py-32 bg-dark relative overflow-hidden"
     >
@@ -25,7 +94,10 @@ export default function About() {
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
           {/* Left: Character Visual */}
           <div className="w-full max-w-md lg:w-5/12 relative group mx-auto lg:mx-0">
-            <div className="aspect-[4/5] w-full relative rounded-sm overflow-hidden border border-primary/30 bg-surface">
+            <ParallaxImage
+              offset={50}
+              className="aspect-[4/5] w-full relative rounded-sm border border-primary/30 bg-surface"
+            >
               {/* Overlay UI */}
               <div className="absolute inset-0 z-20 p-4 sm:p-6 flex flex-col justify-between pointer-events-none">
                 <div className="flex justify-between items-start">
@@ -43,14 +115,16 @@ export default function About() {
                 </div>
               </div>
 
-              <Image
-                src="/images/felixyu.png"
-                alt="Felix Yu — Operator profile visual"
-                fill
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                className="object-cover"
-              />
-            </div>
+              <div className="relative w-full h-full">
+                <Image
+                  src="/images/felixyu.png"
+                  alt="Felix Yu — Operator profile visual"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  className="object-cover"
+                />
+              </div>
+            </ParallaxImage>
 
             {/* Decorative Backdrop */}
             <div className="absolute -top-4 -right-4 w-full h-full border border-dashed border-white/20 -z-10 hidden sm:block"></div>
@@ -58,7 +132,10 @@ export default function About() {
 
           {/* Right: Bio & Facts */}
           <div className="w-full lg:w-7/12">
-            <div className="flex items-center gap-4 mb-6 sm:mb-8">
+            <div
+              data-about-header
+              className="flex items-center gap-4 mb-6 sm:mb-8 opacity-0"
+            >
               <div className="p-2 bg-white/5 rounded border border-white/10">
                 <User className="w-5 h-5 text-primary" />
               </div>
@@ -67,14 +144,16 @@ export default function About() {
               </h2>
             </div>
 
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed mb-10 sm:mb-12 max-w-[65ch]">
+            <p
+              data-about-bio
+              className="text-base sm:text-lg text-slate-300 leading-relaxed mb-10 sm:mb-12 max-w-[65ch] opacity-0"
+            >
               {BIO}
             </p>
 
-            {/* Real facts — not decorative metrics. Definition list for semantics. */}
             <dl className="grid grid-cols-2 gap-x-8 gap-y-6 mb-10 sm:mb-12 max-w-xl border-t border-white/5 pt-8">
               {facts.map((fact) => (
-                <div key={fact.label}>
+                <div key={fact.label} data-about-fact className="opacity-0">
                   <dt className="font-mono text-[10px] sm:text-xs tracking-widest text-slate-500 uppercase mb-1">
                     {fact.label}
                   </dt>
@@ -85,7 +164,6 @@ export default function About() {
               ))}
             </dl>
 
-            {/* Tech stack */}
             <div>
               <h3 className="font-mono text-xs text-slate-500 mb-4 uppercase tracking-widest">
                 // Equipped Modules
@@ -94,7 +172,8 @@ export default function About() {
                 {SKILLS.slice(0, 10).map((skill) => (
                   <span
                     key={skill}
-                    className="px-3 py-1 bg-surface border border-white/10 rounded text-[10px] sm:text-xs font-mono text-slate-300 hover:border-primary/50 hover:text-primary transition-colors cursor-default"
+                    data-about-chip
+                    className="opacity-0 px-3 py-1 bg-surface border border-white/10 rounded text-[10px] sm:text-xs font-mono text-slate-300 hover:border-primary/50 hover:text-primary transition-colors cursor-default"
                   >
                     {skill}
                   </span>

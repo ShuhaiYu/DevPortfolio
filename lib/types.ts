@@ -73,3 +73,47 @@ export interface Category {
   slug: { current: string };
   color: string;
 }
+
+export interface ProjectMetric {
+  label: string;
+  value: string;
+}
+
+export interface SanityImageRef {
+  asset: {
+    _ref: string;
+  };
+}
+
+export interface ProjectDoc {
+  _id: string;
+  title: string;
+  tagline: string;
+  slug: { current: string };
+  role?: string;
+  period?: string;
+  featured?: boolean;
+  order?: number;
+  heroImage?: SanityImageRef;
+  liveUrl?: string;
+  repoUrl?: string;
+  technologies?: string[];
+  problem?: string;
+  approach?: string;
+  metrics?: ProjectMetric[];
+  body?: PortableTextBlock[];
+  gallery?: SanityImageRef[];
+  publishedAt?: string;
+}
+
+export interface ProjectSummary {
+  _id: string;
+  title: string;
+  tagline: string;
+  slug: { current: string };
+  heroImage?: SanityImageRef;
+  technologies?: string[];
+  liveUrl?: string;
+  repoUrl?: string;
+  order?: number;
+}

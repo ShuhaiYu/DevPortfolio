@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Syne, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
+import PaletteProvider from "@/components/palette/PaletteProvider";
+import NowWidget from "@/components/portfolio/NowWidget";
+import { client } from "@/lib/sanity/client";
+import { projectsSummaryQuery, latestPostsQuery } from "@/lib/sanity/queries";
+import type { ProjectSummary, BlogPost } from "@/lib/types";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-sans",
@@ -71,11 +76,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [paletteProjects, palettePosts] = await Promise.all([
+    client.fetch<ProjectSummary[]>(projectsSummaryQuery).catch(() => []),
+    client.fetch<BlogPost[]>(latestPostsQuery, { limit: 6 }).catch(() => []),
+  ]);
+
   return (
     <html
       lang="en"
@@ -114,7 +124,10 @@ export default function RootLayout({
           Skip to main content
         </a>
         <div className="scanlines" />
-        <div className="relative z-10">{children}</div>
+        <PaletteProvider projects={paletteProjects} posts={palettePosts}>
+          <div className="relative z-10">{children}</div>
+          <NowWidget />
+        </PaletteProvider>
         <Analytics />
       </body>
     </html>

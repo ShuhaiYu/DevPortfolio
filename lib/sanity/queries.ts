@@ -59,3 +59,47 @@ export const categoriesQuery = `
     color
   }
 `;
+
+// Projects — summary cards for home page
+export const projectsSummaryQuery = `
+  *[_type == "project"] | order(order asc, publishedAt desc) {
+    _id,
+    title,
+    tagline,
+    slug,
+    heroImage,
+    technologies,
+    liveUrl,
+    repoUrl,
+    order
+  }
+`;
+
+// Single project by slug — full case study payload
+export const projectBySlugQuery = `
+  *[_type == "project" && slug.current == $slug][0] {
+    _id,
+    title,
+    tagline,
+    slug,
+    role,
+    period,
+    featured,
+    order,
+    heroImage,
+    liveUrl,
+    repoUrl,
+    technologies,
+    problem,
+    approach,
+    metrics,
+    body,
+    gallery,
+    publishedAt
+  }
+`;
+
+// All project slugs — for generateStaticParams
+export const projectSlugsQuery = `
+  *[_type == "project" && defined(slug.current)].slug.current
+`;

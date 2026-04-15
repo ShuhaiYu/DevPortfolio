@@ -1,12 +1,92 @@
+"use client";
+
+import { useRef } from "react";
 import { EXPERIENCES, SKILLS } from "@/lib/constants";
 import { Terminal, Cpu } from "lucide-react";
+import { gsap, useGSAP, EASE, prefersReducedMotion } from "@/lib/gsap";
 
 export default function Experience() {
+  const rootRef = useRef<HTMLElement | null>(null);
+
+  useGSAP(
+    () => {
+      const root = rootRef.current;
+      if (!root) return;
+
+      const jobs = root.querySelectorAll<HTMLElement>("[data-job]");
+      const stackCard = root.querySelector<HTMLElement>("[data-stack-card]");
+      const chips = root.querySelectorAll<HTMLElement>("[data-skill-chip]");
+
+      if (prefersReducedMotion()) {
+        gsap.set([...Array.from(jobs), stackCard, ...Array.from(chips)], {
+          opacity: 1,
+          x: 0,
+          y: 0,
+          scale: 1,
+        });
+        return;
+      }
+
+      gsap.fromTo(
+        jobs,
+        { opacity: 0, x: -24 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.7,
+          stagger: 0.15,
+          ease: EASE.out,
+          scrollTrigger: { trigger: root, start: "top 75%" },
+        },
+      );
+
+      if (stackCard) {
+        gsap.fromTo(
+          stackCard,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            ease: EASE.out,
+            scrollTrigger: { trigger: stackCard, start: "top 80%" },
+          },
+        );
+      }
+
+      if (chips.length > 0) {
+        gsap.fromTo(
+          chips,
+          {
+            opacity: 0,
+            x: () => gsap.utils.random(-40, 40),
+            y: () => gsap.utils.random(-20, 20),
+            scale: 0.8,
+          },
+          {
+            opacity: 1,
+            x: 0,
+            y: 0,
+            scale: 1,
+            duration: 0.6,
+            stagger: 0.03,
+            ease: EASE.out,
+            scrollTrigger: { trigger: stackCard, start: "top 75%" },
+          },
+        );
+      }
+    },
+    { scope: rootRef },
+  );
+
   return (
-    <section id="experience" className="py-20 sm:py-24 bg-dark relative">
+    <section
+      ref={rootRef}
+      id="experience"
+      className="py-20 sm:py-24 bg-dark relative"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
-          {/* Experience Grid */}
           <div>
             <div className="flex items-center gap-4 mb-8 sm:mb-12">
               <div className="p-3 bg-surface rounded-xl border border-white/10">
@@ -21,7 +101,8 @@ export default function Experience() {
               {EXPERIENCES.map((job) => (
                 <div
                   key={job.id}
-                  className="group relative pl-8 sm:pl-8 border-l border-white/10 hover:border-accent transition-colors duration-300"
+                  data-job
+                  className="group relative pl-8 sm:pl-8 border-l border-white/10 hover:border-accent transition-colors duration-300 opacity-0"
                 >
                   <div className="absolute -left-[5px] top-1 w-[9px] h-[9px] rounded-full bg-slate-700 group-hover:bg-accent transition-colors"></div>
 
@@ -45,7 +126,6 @@ export default function Experience() {
             </div>
           </div>
 
-          {/* Skills Visualizer */}
           <div className="relative mt-8 lg:mt-0">
             <div className="lg:sticky lg:top-24">
               <div className="flex items-center gap-4 mb-8 sm:mb-12">
@@ -57,8 +137,10 @@ export default function Experience() {
                 </h2>
               </div>
 
-              <div className="bg-surface border border-white/5 rounded-3xl p-6 sm:p-8 relative overflow-hidden">
-                {/* Decoration */}
+              <div
+                data-stack-card
+                className="bg-surface border border-white/5 rounded-3xl p-6 sm:p-8 relative overflow-hidden opacity-0"
+              >
                 <div className="absolute top-0 right-0 p-4 opacity-20">
                   <div className="flex gap-1">
                     <div className="w-2 h-2 rounded-full bg-red-500"></div>
@@ -75,7 +157,8 @@ export default function Experience() {
                   {SKILLS.map((skill) => (
                     <div
                       key={skill}
-                      className="group relative px-3 sm:px-4 py-2 bg-dark/50 rounded-lg border border-white/5 text-slate-300 hover:text-dark hover:bg-primary hover:border-primary transition-all cursor-default overflow-hidden"
+                      data-skill-chip
+                      className="group relative px-3 sm:px-4 py-2 bg-dark/50 rounded-lg border border-white/5 text-slate-300 hover:text-dark hover:bg-primary hover:border-primary transition-all cursor-default overflow-hidden opacity-0"
                     >
                       <span className="relative z-10 text-xs sm:text-sm font-medium">
                         {skill}

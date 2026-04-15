@@ -4,12 +4,32 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Menu, X, Zap } from "lucide-react";
 import { OWNER_NAME } from "@/lib/constants";
+import { gsap, useGSAP, EASE, prefersReducedMotion } from "@/lib/gsap";
+import { usePalette } from "@/components/palette/PaletteProvider";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { toggle: togglePalette } = usePalette();
   const menuToggleRef = useRef<HTMLButtonElement>(null);
   const menuPanelRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      if (!rootRef.current) return;
+      if (prefersReducedMotion()) {
+        gsap.set(rootRef.current, { y: 0, opacity: 1 });
+        return;
+      }
+      gsap.fromTo(
+        rootRef.current,
+        { y: -60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: EASE.expo, delay: 1.8 },
+      );
+    },
+    { scope: rootRef },
+  );
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -63,7 +83,10 @@ export default function Navbar() {
   ];
 
   return (
-    <div className="fixed top-0 left-0 w-full z-50 flex justify-center pt-2 sm:pt-4 px-4 pointer-events-none">
+    <div
+      ref={rootRef}
+      className="fixed top-0 left-0 w-full z-50 flex justify-center pt-2 sm:pt-4 px-4 pointer-events-none"
+    >
       <nav
         className={`pointer-events-auto transition-all duration-500 ease-out ${
           scrolled
@@ -107,6 +130,17 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
+            <button
+              type="button"
+              onClick={togglePalette}
+              className="ml-2 inline-flex items-center gap-2 px-3 py-2 rounded-full text-[10px] font-mono uppercase tracking-widest border border-white/10 text-slate-400 hover:border-primary/40 hover:text-primary transition-all"
+              aria-label="Open command palette"
+            >
+              <span>Search</span>
+              <kbd className="px-1.5 py-0.5 bg-white/5 border border-white/10 rounded text-[9px]">
+                ⌘K
+              </kbd>
+            </button>
             <Link
               href="#contact"
               className={`ml-2 px-5 py-2 rounded-full text-xs font-mono uppercase tracking-widest font-bold transition-all duration-300 ${
