@@ -34,7 +34,7 @@ export default function Projects() {
                 alt={project.title}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className="object-cover filter grayscale-[0.6] brightness-75 scale-100 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-110 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                className="object-cover filter grayscale-[0.6] brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-[filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
               />
 
               {/* Solid surface panel covering bottom 55% — fades out on hover to reveal full image */}

@@ -74,16 +74,34 @@ export const TESTIMONIALS: Testimonial[] = [
 export const PROJECTS: Project[] = [
   {
     id: 1,
-    title: "Austin Dashboard",
+    title: "Austin Education",
     description:
       "A high-performance student dashboard for VCE Education using Next.js and Recharts. Features real-time exam data visualization via WebSockets.",
     technologies: ["Next.js", "TypeScript", "Socket.io", "MySQL"],
     imageUrl: "/images/austin.png",
-    demoUrl: "https://myaustin.com.au/dashboard",
+    demoUrl: "https://www.austineducation.com.au/en",
     repoUrl: "https://github.com/ShuhaiYu/austin-student-dashboard",
   },
   {
     id: 2,
+    title: "Red Bridge",
+    description:
+      "A bilingual corporate website for Red Bridge, showcasing education and migration services across Australia and China with a refined editorial layout.",
+    technologies: ["Next.js", "TypeScript", "Tailwind", "Sanity"],
+    imageUrl: "/images/red-bridge.png",
+    demoUrl: "https://www.red-bridge.com.au/en",
+  },
+  {
+    id: 3,
+    title: "Open Mat",
+    description:
+      "A content and community platform for Open Mat, delivering martial-arts media, event information, and membership tooling with a fast, mobile-first UI.",
+    technologies: ["Next.js", "TypeScript", "Tailwind", "PostgreSQL"],
+    imageUrl: "/images/open-mat.png",
+    demoUrl: "https://www.openmat.com.cn/",
+  },
+  {
+    id: 4,
     title: "PixCode",
     description:
       "An OpenAI-compatible API gateway connecting 100+ LLMs with one key. Access GPT-5, Claude 4.6, Gemini 3, DeepSeek, and more through a unified endpoint.",
@@ -91,16 +109,6 @@ export const PROJECTS: Project[] = [
     imageUrl: "/images/pixcode.png",
     demoUrl: "https://www.onlypixai.com/",
     repoUrl: "https://github.com/ShuhaiYu/botai",
-  },
-  {
-    id: 3,
-    title: "Auction Platform",
-    description:
-      "E-commerce platform built for speed and SEO. Starting from scratch with Ably, Neon, and Stripe integration.",
-    technologies: ["Next.js", "Tailwind", "Stripe", "PostgreSQL"],
-    imageUrl: "/images/whiskytrade.png",
-    demoUrl: "https://whiskytrade-2.vercel.app/",
-    repoUrl: "https://github.com/ShuhaiYu/whiskytrade-2",
   },
 ];
 

@@ -5,6 +5,7 @@ import CodeStream from "@/components/portfolio/CodeStream";
 import Services from "@/components/portfolio/Services";
 import Experience from "@/components/portfolio/Experience";
 import Projects from "@/components/portfolio/Projects";
+import GitHubContributions from "@/components/portfolio/GitHubContributions";
 import LatestPosts from "@/components/blog/LatestPosts";
 import Testimonials from "@/components/portfolio/Testimonials";
 import Contact from "@/components/portfolio/Contact";
@@ -20,6 +21,7 @@ export default function Home() {
         <CodeStream />
         <Services />
         <Experience />
+        <GitHubContributions />
         <Projects />
         <LatestPosts />
         <Testimonials />

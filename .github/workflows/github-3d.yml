@@ -1,0 +1,39 @@
+name: GitHub 3D Contributions
+
+on:
+  schedule:
+    - cron: "0 18 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/github-3d.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate 3D contribution SVG
+        uses: yoshi389111/github-profile-3d-contrib@0.7.1
+        env:
+          USERNAME: ShuhaiYu
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Move SVGs to public/
+        run: |
+          mkdir -p public/github-3d
+          cp profile-3d-contrib/profile-night-view.svg public/github-3d/night.svg
+          cp profile-3d-contrib/profile-night-green.svg public/github-3d/night-green.svg
+
+      - name: Commit & Push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/github-3d/
+          git diff --cached --quiet || git commit -m "chore: update 3d contribution svg"
+          git push

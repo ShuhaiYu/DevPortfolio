@@ -43,9 +43,8 @@ export default function About() {
                 </div>
               </div>
 
-              {/* Local SVG placeholder (no external dependency) */}
               <Image
-                src="/images/operator-placeholder.svg"
+                src="/images/felixyu.png"
                 alt="Felix Yu — Operator profile visual"
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
