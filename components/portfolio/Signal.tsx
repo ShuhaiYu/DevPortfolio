@@ -1,6 +1,7 @@
 import { Github, Activity, GitCommit } from "lucide-react";
 import { fetchGitHubStats, relativeTime } from "@/lib/services/githubService";
 import Reveal from "@/components/effects/Reveal";
+import SignalKPIs from "./SignalKPIs";
 
 const GITHUB_USERNAME = "ShuhaiYu";
 
@@ -8,9 +9,9 @@ export default async function Signal() {
   const stats = await fetchGitHubStats();
 
   const kpis = [
-    { label: "Public Repos", value: stats.publicRepos },
-    { label: "Followers", value: stats.followers },
-    { label: "Recent PR Events", value: stats.prEvents },
+    { label: "Repos", value: stats.publicRepos },
+    { label: "Commits · 1y", value: stats.totalCommits },
+    { label: "Pull Requests · 1y", value: stats.totalPRs },
   ];
 
   return (
@@ -45,24 +46,7 @@ export default async function Signal() {
         </Reveal>
 
         <div className="grid md:grid-cols-[auto_1fr] gap-8 md:gap-12 items-start">
-          <Reveal
-            as="div"
-            className="grid grid-cols-3 md:grid-cols-1 gap-px bg-white/10 rounded-xl overflow-hidden md:w-56"
-          >
-            {kpis.map((kpi) => (
-              <div
-                key={kpi.label}
-                className="bg-dark p-5 sm:p-6 flex flex-col justify-center"
-              >
-                <div className="text-3xl sm:text-4xl font-heading font-bold text-primary tracking-tight">
-                  {kpi.value}
-                </div>
-                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500 mt-1">
-                  {kpi.label}
-                </div>
-              </div>
-            ))}
-          </Reveal>
+          <SignalKPIs kpis={kpis} />
 
           <Reveal
             as="div"
