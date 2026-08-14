@@ -9,7 +9,6 @@ import Signal from "@/components/portfolio/Signal";
 import LatestPosts from "@/components/blog/LatestPosts";
 import Testimonials from "@/components/portfolio/Testimonials";
 import Contact from "@/components/portfolio/Contact";
-import AIChat from "@/components/chat/AIChat";
 import { client } from "@/lib/sanity/client";
 import { projectsSummaryQuery } from "@/lib/sanity/queries";
 import { PROJECTS } from "@/lib/constants";
@@ -37,7 +36,6 @@ export default async function Home() {
         <Testimonials />
       </main>
       <Contact />
-      <AIChat />
     </div>
   );
 }

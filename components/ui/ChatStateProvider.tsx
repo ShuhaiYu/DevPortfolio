@@ -10,8 +10,8 @@ interface ChatState {
 const ChatStateContext = createContext<ChatState | null>(null);
 
 /**
- * Shares the chat panel's open state between `AIChat` (rendered inside a page)
- * and `NowWidget` (rendered in the root layout). Both occupy the bottom-right
+ * Shares the chat panel's open state between `AIChat` and `NowWidget`, the two
+ * global floating widgets in the root layout. Both occupy the bottom-right
  * corner, so the widget needs to know when the chat has taken that space.
  */
 export default function ChatStateProvider({

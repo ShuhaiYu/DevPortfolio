@@ -83,15 +83,6 @@ export const PROJECTS: Project[] = [
     repoUrl: "https://github.com/ShuhaiYu/austin-student-dashboard",
   },
   {
-    id: 2,
-    title: "Red Bridge",
-    description:
-      "A bilingual corporate website for Red Bridge, showcasing education and migration services across Australia and China with a refined editorial layout.",
-    technologies: ["Next.js", "TypeScript", "Tailwind", "Sanity"],
-    imageUrl: "/images/red-bridge.png",
-    demoUrl: "https://www.red-bridge.com.au/en",
-  },
-  {
     id: 3,
     title: "Open Mat",
     description:
@@ -109,6 +100,33 @@ export const PROJECTS: Project[] = [
     imageUrl: "/images/pixcode.png",
     demoUrl: "https://www.onlypixai.com/",
     repoUrl: "https://github.com/ShuhaiYu/botai",
+  },
+  {
+    id: 5,
+    title: "Goodmood Studio",
+    description:
+      "A fully bilingual (EN/中) marketing site for a Melbourne agency working the China–Australia bridge, with server-side image optimisation for image-heavy editorial.",
+    technologies: ["Next.js", "TypeScript", "Bilingual (EN/中)", "Tailwind"],
+    imageUrl: "/images/good-mood-studio.webp",
+    demoUrl: "https://www.goodmoodstudio.com.au/en",
+  },
+  {
+    id: 6,
+    title: "Insight Idea",
+    description:
+      "A bilingual marketing site for an Australian immigration consultancy, surfacing MARN and QEAC credentials in the page chrome and carrying social proof through video-led client narratives.",
+    technologies: ["Next.js", "TypeScript", "Bilingual (EN/中)", "Tailwind"],
+    imageUrl: "/images/insight-idea.webp",
+    demoUrl: "https://www.insightidea.com.au/en",
+  },
+  {
+    id: 7,
+    title: "Pet Daddy",
+    description:
+      "A Shopify storefront for a Surrey Hills pet boutique, with grooming bookings running inside the same back office as retail across roughly fifteen product categories.",
+    technologies: ["Shopify", "Liquid", "Grooming booking"],
+    imageUrl: "/images/pet-daddy.webp",
+    demoUrl: "https://www.petdaddy.com.au/",
   },
 ];
 

@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import PaletteProvider from "@/components/palette/PaletteProvider";
 import NowWidget from "@/components/portfolio/NowWidget";
+import AIChat from "@/components/chat/AIChat";
 import JsonLd from "@/components/seo/JsonLd";
 import ChatStateProvider from "@/components/ui/ChatStateProvider";
 import { client } from "@/lib/sanity/client";
@@ -130,6 +131,7 @@ export default async function RootLayout({
           <ChatStateProvider>
             <div className="relative z-10">{children}</div>
             <NowWidget />
+            <AIChat />
           </ChatStateProvider>
         </PaletteProvider>
         <Analytics />
