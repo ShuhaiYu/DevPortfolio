@@ -50,24 +50,24 @@ export const SERVICES: Service[] = [
 export const TESTIMONIALS: Testimonial[] = [
   {
     id: 1,
-    name: "Sarah Jenkins",
-    role: "CTO",
-    company: "Nexus Corp",
-    text: "Felix's code is cleaner than a T-800's CPU. The best engineer I've worked with regarding system architecture and delivery speed.",
+    name: "Edgar Tang",
+    role: "CEO",
+    company: "Pixdyne",
+    text: "Felix took our product from an idea to a shipped platform. He owns the whole stack — architecture, interface, deployment — and moves faster than teams several times his size.",
   },
   {
     id: 2,
-    name: "David Arasaka",
-    role: "Product Lead",
-    company: "Night City Tech",
-    text: "Transformed our legacy platform into a modern masterpiece. The attention to detail on the UI animations was incredible.",
+    name: "Sarah Jiang",
+    role: "Founder",
+    company: "Kirin Finance",
+    text: "Felix rebuilt our web presence end to end. Clear communication, sensible technical decisions, and a finished site that loads instantly and looks genuinely professional.",
   },
   {
     id: 3,
-    name: "Elena Fisher",
-    role: "Founder",
-    company: "Uncharted AI",
-    text: "A rare developer who understands both deep backend logic and beautiful frontend design. Highly recommended.",
+    name: "Sophie Wang",
+    role: "Owner",
+    company: "Local business, Melbourne",
+    text: "I needed a site that actually brings in customers, not just something that looks nice. Felix understood the goal, handled everything technical, and made the whole process painless.",
   },
 ];
 
@@ -81,15 +81,6 @@ export const PROJECTS: Project[] = [
     imageUrl: "/images/austin.png",
     demoUrl: "https://www.austineducation.com.au/en",
     repoUrl: "https://github.com/ShuhaiYu/austin-student-dashboard",
-  },
-  {
-    id: 2,
-    title: "Red Bridge",
-    description:
-      "A bilingual corporate website for Red Bridge, showcasing education and migration services across Australia and China with a refined editorial layout.",
-    technologies: ["Next.js", "TypeScript", "Tailwind", "Sanity"],
-    imageUrl: "/images/red-bridge.png",
-    demoUrl: "https://www.red-bridge.com.au/en",
   },
   {
     id: 3,
@@ -109,6 +100,33 @@ export const PROJECTS: Project[] = [
     imageUrl: "/images/pixcode.png",
     demoUrl: "https://www.onlypixai.com/",
     repoUrl: "https://github.com/ShuhaiYu/botai",
+  },
+  {
+    id: 5,
+    title: "Goodmood Studio",
+    description:
+      "A fully bilingual (EN/中) marketing site for a Melbourne agency working the China–Australia bridge, with server-side image optimisation for image-heavy editorial.",
+    technologies: ["Next.js", "TypeScript", "Bilingual (EN/中)", "Tailwind"],
+    imageUrl: "/images/good-mood-studio.webp",
+    demoUrl: "https://www.goodmoodstudio.com.au/en",
+  },
+  {
+    id: 6,
+    title: "Insight Idea",
+    description:
+      "A bilingual marketing site for an Australian immigration consultancy, surfacing MARN and QEAC credentials in the page chrome and carrying social proof through video-led client narratives.",
+    technologies: ["Next.js", "TypeScript", "Bilingual (EN/中)", "Tailwind"],
+    imageUrl: "/images/insight-idea.webp",
+    demoUrl: "https://www.insightidea.com.au/en",
+  },
+  {
+    id: 7,
+    title: "Pet Daddy",
+    description:
+      "A Shopify storefront for a Surrey Hills pet boutique, with grooming bookings running inside the same back office as retail across roughly fifteen product categories.",
+    technologies: ["Shopify", "Liquid", "Grooming booking"],
+    imageUrl: "/images/pet-daddy.webp",
+    demoUrl: "https://www.petdaddy.com.au/",
   },
 ];
 

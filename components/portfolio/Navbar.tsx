@@ -74,11 +74,13 @@ export default function Navbar() {
     return () => document.removeEventListener("keydown", handleKey);
   }, [isOpen]);
 
+  // Section anchors are root-relative ("/#services") so they resolve from
+  // /blog, /about and /projects too — a bare "#services" only works on home.
   const navLinks = [
-    { name: "Profile", href: "#about" },
-    { name: "Protocols", href: "#services" },
-    { name: "Log", href: "#experience" },
-    { name: "Work", href: "#projects" },
+    { name: "About", href: "/about" },
+    { name: "Protocols", href: "/#services" },
+    { name: "Log", href: "/#experience" },
+    { name: "Work", href: "/projects" },
     { name: "Blog", href: "/blog" },
   ];
 
@@ -142,7 +144,7 @@ export default function Navbar() {
               </kbd>
             </button>
             <Link
-              href="#contact"
+              href="/#contact"
               className={`ml-2 px-5 py-2 rounded-full text-xs font-mono uppercase tracking-widest font-bold transition-all duration-300 ${
                 scrolled
                   ? "bg-primary text-dark hover:bg-white hover:scale-105"
@@ -179,7 +181,7 @@ export default function Navbar() {
             className="absolute top-full left-0 w-full mt-4 p-2 md:hidden pointer-events-auto"
           >
             <div className="glass-panel bg-black/95 backdrop-blur-2xl rounded-2xl p-6 flex flex-col space-y-4 animate-fade-in border border-primary/20 shadow-[0_10px_40px_rgba(0,0,0,0.9)]">
-              {[...navLinks, { name: "Contact", href: "#contact" }].map(
+              {[...navLinks, { name: "Contact", href: "/#contact" }].map(
                 (link) => (
                   <Link
                     key={link.name}

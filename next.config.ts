@@ -13,6 +13,17 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      // Retired case study. It was linked from the home page grid, so send any
+      // remaining inbound links to the index rather than serving a 404.
+      {
+        source: "/projects/red-bridge",
+        destination: "/projects",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

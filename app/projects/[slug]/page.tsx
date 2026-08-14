@@ -6,8 +6,16 @@ import { ArrowLeft, ArrowUpRight, Github, Calendar } from "lucide-react";
 import { PortableText } from "@portabletext/react";
 import Navbar from "@/components/portfolio/Navbar";
 import Contact from "@/components/portfolio/Contact";
+import JsonLd from "@/components/seo/JsonLd";
 import { client, urlFor } from "@/lib/sanity/client";
 import { projectBySlugQuery, projectSlugsQuery } from "@/lib/sanity/queries";
+import { OWNER_NAME } from "@/lib/constants";
+import {
+  SITE_URL,
+  buildGraph,
+  breadcrumbSchema,
+  absoluteUrl,
+} from "@/lib/seo";
 import type { ProjectDoc } from "@/lib/types";
 
 interface PageProps {
@@ -22,17 +30,28 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const project: ProjectDoc | null = await client.fetch(projectBySlugQuery, { slug });
-  if (!project) return { title: "Project Not Found" };
+  if (!project) return { title: "Project Not Found", robots: { index: false } };
+
+  const description =
+    project.tagline ?? `${project.title}, a project built by ${OWNER_NAME}.`;
+
   return {
     title: `${project.title} — Case Study`,
-    description: project.tagline,
+    description,
+    alternates: { canonical: `/projects/${slug}` },
     openGraph: {
-      title: project.title,
-      description: project.tagline,
+      title: `${project.title} — Case Study | ${OWNER_NAME}`,
+      description,
       type: "article",
+      url: absoluteUrl(`/projects/${slug}`),
       images: project.heroImage
         ? [urlFor(project.heroImage).width(1200).height(630).url()]
         : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} — Case Study | ${OWNER_NAME}`,
+      description,
     },
   };
 }
@@ -107,14 +126,44 @@ export default async function ProjectPage({ params }: PageProps) {
 
   if (!project) notFound();
 
+  // CreativeWork rather than Article: a case study describes a shipped product,
+  // and `creator` is what ties that product back to the site owner's entity.
+  const projectSchema = {
+    "@type": "CreativeWork",
+    "@id": `${SITE_URL}/projects/${slug}#project`,
+    url: absoluteUrl(`/projects/${slug}`),
+    name: project.title,
+    headline: project.title,
+    description: project.tagline,
+    inLanguage: "en",
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    creator: { "@id": `${SITE_URL}/#person` },
+    author: { "@id": `${SITE_URL}/#person` },
+    ...(project.heroImage
+      ? { image: urlFor(project.heroImage).width(1200).height(630).url() }
+      : {}),
+    ...(project.publishedAt ? { datePublished: project.publishedAt } : {}),
+    ...(project.technologies?.length ? { keywords: project.technologies } : {}),
+  };
+
   return (
     <div className="min-h-screen bg-dark text-slate-200">
       <Navbar />
+      <JsonLd
+        schema={buildGraph([
+          projectSchema,
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Projects", path: "/projects" },
+            { name: project.title, path: `/projects/${slug}` },
+          ]),
+        ])}
+      />
 
       <main id="main" className="pt-24 pb-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
           <Link
-            href="/#projects"
+            href="/projects"
             className="inline-flex items-center text-slate-400 hover:text-primary transition-colors font-mono text-sm"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />

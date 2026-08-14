@@ -3,14 +3,42 @@ import Navbar from "@/components/portfolio/Navbar";
 import BlogHero from "@/components/blog/BlogHero";
 import BlogCard from "@/components/blog/BlogCard";
 import Contact from "@/components/portfolio/Contact";
+import JsonLd from "@/components/seo/JsonLd";
 import { client } from "@/lib/sanity/client";
 import { postsQuery } from "@/lib/sanity/queries";
+import { OWNER_NAME } from "@/lib/constants";
+import {
+  SITE_URL,
+  buildGraph,
+  breadcrumbSchema,
+  absoluteUrl,
+} from "@/lib/seo";
 import type { BlogPost } from "@/lib/types";
+
+const DESCRIPTION = `Writing by ${OWNER_NAME} on web development, React and Next.js architecture, AI integration, and building for the modern web.`;
 
 export const metadata: Metadata = {
   title: "Blog",
-  description:
-    "Thoughts on web development, AI integration, and building the future of the internet.",
+  description: DESCRIPTION,
+  alternates: { canonical: "/blog" },
+  openGraph: {
+    type: "website",
+    title: `Blog | ${OWNER_NAME}`,
+    description: DESCRIPTION,
+    url: absoluteUrl("/blog"),
+  },
+};
+
+const blogSchema = {
+  "@type": "Blog",
+  "@id": `${SITE_URL}/blog#blog`,
+  url: absoluteUrl("/blog"),
+  name: `${OWNER_NAME} — Blog`,
+  description: DESCRIPTION,
+  inLanguage: "en",
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  author: { "@id": `${SITE_URL}/#person` },
+  publisher: { "@id": `${SITE_URL}/#person` },
 };
 
 // Cache the blog list page
@@ -26,6 +54,15 @@ export default async function BlogPage() {
   return (
     <div className="min-h-screen bg-dark text-slate-200">
       <Navbar />
+      <JsonLd
+        schema={buildGraph([
+          blogSchema,
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Blog", path: "/blog" },
+          ]),
+        ])}
+      />
       <main id="main">
         <BlogHero />
 

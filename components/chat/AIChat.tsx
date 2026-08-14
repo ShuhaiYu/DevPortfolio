@@ -6,9 +6,12 @@ import { sendMessageToGemini } from "@/lib/services/geminiService";
 import { OWNER_NAME } from "@/lib/constants";
 import type { ChatMessage } from "@/lib/types";
 import { gsap, useGSAP, EASE, prefersReducedMotion } from "@/lib/gsap";
+import { useChatState } from "@/components/ui/ChatStateProvider";
 
 export default function AIChat() {
-  const [isOpen, setIsOpen] = useState(false);
+  // Open state lives in shared context so the Now widget, which sits in the
+  // same bottom-right corner, can step aside while the chat is open.
+  const { isChatOpen: isOpen, setChatOpen: setIsOpen } = useChatState();
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([

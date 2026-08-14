@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { X, Rocket, PenTool, BookOpen, GitCommit } from "lucide-react";
 import { gsap, useGSAP, EASE, prefersReducedMotion } from "@/lib/gsap";
+import { useChatState } from "@/components/ui/ChatStateProvider";
 import type { NowState } from "@/lib/now";
 
 interface LatestCommit {
@@ -19,6 +20,7 @@ interface NowWidgetClientProps {
 
 export default function NowWidgetClient({ now, latestCommit }: NowWidgetClientProps) {
   const [collapsed, setCollapsed] = useState(false);
+  const { isChatOpen } = useChatState();
   const ref = useRef<HTMLDivElement | null>(null);
 
   useGSAP(
@@ -39,6 +41,10 @@ export default function NowWidgetClient({ now, latestCommit }: NowWidgetClientPr
     },
     { scope: ref },
   );
+
+  // The chat panel covers this exact corner, so yield the space entirely while
+  // it is open. The user's own collapse choice is preserved for when it closes.
+  if (isChatOpen) return null;
 
   if (collapsed) {
     return (
@@ -78,9 +84,27 @@ export default function NowWidgetClient({ now, latestCommit }: NowWidgetClientPr
       </div>
 
       <div className="p-4 space-y-3 font-mono text-xs">
-        <Row icon={<Rocket className="w-3.5 h-3.5" />} label="Shipping" value={now.shipping} />
-        <Row icon={<PenTool className="w-3.5 h-3.5" />} label="Writing" value={now.writing} />
-        <Row icon={<BookOpen className="w-3.5 h-3.5" />} label="Reading" value={now.reading} />
+        {now.shipping && (
+          <Row
+            icon={<Rocket className="w-3.5 h-3.5" />}
+            label="Shipping"
+            value={now.shipping}
+          />
+        )}
+        {now.writing && (
+          <Row
+            icon={<PenTool className="w-3.5 h-3.5" />}
+            label="Writing"
+            value={now.writing}
+          />
+        )}
+        {now.reading && (
+          <Row
+            icon={<BookOpen className="w-3.5 h-3.5" />}
+            label="Reading"
+            value={now.reading}
+          />
+        )}
       </div>
 
       {latestCommit && (

@@ -6,8 +6,16 @@ import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { PortableText } from "@portabletext/react";
 import Navbar from "@/components/portfolio/Navbar";
 import Contact from "@/components/portfolio/Contact";
+import JsonLd from "@/components/seo/JsonLd";
 import { client, urlFor } from "@/lib/sanity/client";
 import { postBySlugQuery, postSlugsQuery } from "@/lib/sanity/queries";
+import { OWNER_NAME } from "@/lib/constants";
+import {
+  SITE_URL,
+  buildGraph,
+  breadcrumbSchema,
+  absoluteUrl,
+} from "@/lib/seo";
 import type { BlogPost } from "@/lib/types";
 
 interface PageProps {
@@ -28,17 +36,31 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!post) {
     return {
       title: "Post Not Found",
+      robots: { index: false },
     };
   }
 
   return {
     title: post.title,
     description: post.excerpt,
+    alternates: { canonical: `/blog/${slug}` },
+    authors: [{ name: OWNER_NAME, url: SITE_URL }],
     openGraph: {
       title: post.title,
       description: post.excerpt,
       type: "article",
+      url: absoluteUrl(`/blog/${slug}`),
       publishedTime: post.publishedAt,
+      authors: [SITE_URL],
+      tags: post.tags,
+      images: post.coverImage
+        ? [urlFor(post.coverImage).width(1200).height(630).url()]
+        : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
       images: post.coverImage
         ? [urlFor(post.coverImage).width(1200).height(630).url()]
         : [],
@@ -129,26 +151,43 @@ export default async function BlogPostPage({ params }: PageProps) {
     <div className="min-h-screen bg-dark text-slate-200">
       <Navbar />
 
-      {/* JSON-LD for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
+      <JsonLd
+        schema={buildGraph([
+          {
             "@type": "BlogPosting",
+            "@id": `${SITE_URL}/blog/${slug}#post`,
+            url: absoluteUrl(`/blog/${slug}`),
+            // `mainEntityOfPage` tells Google this article *is* the page,
+            // rather than a snippet embedded somewhere on it.
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": absoluteUrl(`/blog/${slug}`),
+            },
             headline: post.title,
             description: post.excerpt,
-            image: post.coverImage
-              ? urlFor(post.coverImage).url()
-              : undefined,
+            inLanguage: "en",
+            ...(post.coverImage
+              ? { image: urlFor(post.coverImage).width(1200).height(630).url() }
+              : {}),
             datePublished: post.publishedAt,
-            author: {
-              "@type": "Person",
-              name: "Felix Yu",
-              url: "https://www.felixyu.net",
-            },
-          }),
-        }}
+            // Sanity exposes no edit timestamp on this projection, so the
+            // publish date doubles as the modified date.
+            dateModified: post.publishedAt,
+            ...(post.readingTime
+              ? { timeRequired: `PT${post.readingTime}M` }
+              : {}),
+            ...(post.tags?.length ? { keywords: post.tags } : {}),
+            ...(post.category ? { articleSection: post.category.title } : {}),
+            author: { "@id": `${SITE_URL}/#person` },
+            publisher: { "@id": `${SITE_URL}/#person` },
+            isPartOf: { "@id": `${SITE_URL}/blog#blog` },
+          },
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Blog", path: "/blog" },
+            { name: post.title, path: `/blog/${slug}` },
+          ]),
+        ])}
       />
 
       <main id="main" className="pt-24 pb-16">
