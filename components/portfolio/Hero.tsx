@@ -27,13 +27,18 @@ export default function Hero() {
       if (!root) return;
 
       const pill = root.querySelector<HTMLElement>("[data-hero-pill]");
+      const name = root.querySelector<HTMLElement>("[data-hero-name]");
       const words = root.querySelectorAll<HTMLElement>("[data-hero-word]");
       const subtitle = root.querySelector<HTMLElement>("[data-hero-subtitle]");
       const ctas = root.querySelectorAll<HTMLElement>("[data-hero-cta]");
 
-      const targets = [pill, ...Array.from(words), subtitle, ...Array.from(ctas)].filter(
-        Boolean,
-      );
+      const targets = [
+        pill,
+        name,
+        ...Array.from(words),
+        subtitle,
+        ...Array.from(ctas),
+      ].filter(Boolean);
       if (targets.length === 0) return;
 
       if (prefersReducedMotion()) {
@@ -49,6 +54,12 @@ export default function Hero() {
         { opacity: 0, y: 10 },
         { opacity: 1, y: 0, duration: 0.4, ease: EASE.out },
       )
+        .fromTo(
+          name,
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.5, ease: EASE.out },
+          "-=0.15",
+        )
         .fromTo(
           words,
           { opacity: 0, y: 80, rotateX: -60 },
@@ -131,27 +142,36 @@ export default function Hero() {
           </span>
         </div>
 
-        {/* Main Title */}
-        <h1 className="font-heading text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tighter text-white mb-6 relative z-10 leading-[0.9] w-full max-w-[95vw]">
-          {HEADLINE_LINES.map((line, lineIdx) =>
-            line.map((word) => (
-              <span
-                key={`${lineIdx}-${word}`}
-                className={`block overflow-hidden ${
-                  word === "ARCHITECT" ? "text-primary glitch-text" : ""
-                }`}
-                data-text={word === "ARCHITECT" ? "ARCHITECT" : undefined}
-              >
+        {/* Main Title — the owner's name leads the H1 so the page's strongest
+            on-page signal matches the name people actually search for. */}
+        <h1 className="font-heading font-black tracking-tighter text-white mb-6 relative z-10 w-full max-w-[95vw]">
+          <span
+            data-hero-name
+            className="block font-mono text-xs sm:text-sm md:text-base font-medium uppercase tracking-[0.35em] text-primary/80 mb-4 sm:mb-6 opacity-0"
+          >
+            {OWNER_NAME}
+          </span>
+          <span className="block text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-[0.9]">
+            {HEADLINE_LINES.map((line, lineIdx) =>
+              line.map((word) => (
                 <span
-                  data-hero-word
-                  className="inline-block opacity-0"
-                  style={{ transformOrigin: "50% 100%" }}
+                  key={`${lineIdx}-${word}`}
+                  className={`block overflow-hidden ${
+                    word === "ARCHITECT" ? "text-primary glitch-text" : ""
+                  }`}
+                  data-text={word === "ARCHITECT" ? "ARCHITECT" : undefined}
                 >
-                  {word}
+                  <span
+                    data-hero-word
+                    className="inline-block opacity-0"
+                    style={{ transformOrigin: "50% 100%" }}
+                  >
+                    {word}
+                  </span>
                 </span>
-              </span>
-            )),
-          )}
+              )),
+            )}
+          </span>
         </h1>
 
         {/* Subtitle */}
@@ -159,8 +179,10 @@ export default function Hero() {
           data-hero-subtitle
           className="mt-4 sm:mt-6 max-w-2xl text-slate-400 text-base sm:text-xl font-light px-4 opacity-0"
         >
-          I&apos;m <strong className="text-white">{OWNER_NAME}</strong>.{" "}
-          {OWNER_TITLE}. <br className="hidden sm:block" />
+          I&apos;m <strong className="text-white">{OWNER_NAME}</strong>, a{" "}
+          {OWNER_TITLE.toLowerCase()} based in{" "}
+          <strong className="text-white">Melbourne, Australia</strong>.{" "}
+          <br className="hidden sm:block" />
           Building high-performance interfaces for the{" "}
           <span className="text-accent font-mono">next web</span>.
         </p>

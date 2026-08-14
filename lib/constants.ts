@@ -50,24 +50,24 @@ export const SERVICES: Service[] = [
 export const TESTIMONIALS: Testimonial[] = [
   {
     id: 1,
-    name: "Sarah Jenkins",
-    role: "CTO",
-    company: "Nexus Corp",
-    text: "Felix's code is cleaner than a T-800's CPU. The best engineer I've worked with regarding system architecture and delivery speed.",
+    name: "Edgar Tang",
+    role: "CEO",
+    company: "Pixdyne",
+    text: "Felix took our product from an idea to a shipped platform. He owns the whole stack — architecture, interface, deployment — and moves faster than teams several times his size.",
   },
   {
     id: 2,
-    name: "David Arasaka",
-    role: "Product Lead",
-    company: "Night City Tech",
-    text: "Transformed our legacy platform into a modern masterpiece. The attention to detail on the UI animations was incredible.",
+    name: "Sarah Jiang",
+    role: "Founder",
+    company: "Kirin Finance",
+    text: "Felix rebuilt our web presence end to end. Clear communication, sensible technical decisions, and a finished site that loads instantly and looks genuinely professional.",
   },
   {
     id: 3,
-    name: "Elena Fisher",
-    role: "Founder",
-    company: "Uncharted AI",
-    text: "A rare developer who understands both deep backend logic and beautiful frontend design. Highly recommended.",
+    name: "Sophie Wang",
+    role: "Owner",
+    company: "Local business, Melbourne",
+    text: "I needed a site that actually brings in customers, not just something that looks nice. Felix understood the goal, handled everything technical, and made the whole process painless.",
   },
 ];
 

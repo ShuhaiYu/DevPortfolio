@@ -4,8 +4,20 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import PaletteProvider from "@/components/palette/PaletteProvider";
 import NowWidget from "@/components/portfolio/NowWidget";
+import JsonLd from "@/components/seo/JsonLd";
+import ChatStateProvider from "@/components/ui/ChatStateProvider";
 import { client } from "@/lib/sanity/client";
 import { projectsSummaryQuery, latestPostsQuery } from "@/lib/sanity/queries";
+import { OWNER_NAME, OWNER_TITLE } from "@/lib/constants";
+import {
+  SITE_URL,
+  SITE_NAME,
+  DEFAULT_TITLE,
+  DEFAULT_DESCRIPTION,
+  personSchema,
+  webSiteSchema,
+  buildGraph,
+} from "@/lib/seo";
 import type { ProjectSummary, BlogPost } from "@/lib/types";
 
 const spaceGrotesk = Space_Grotesk({
@@ -27,14 +39,17 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.felixyu.net"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Felix Dev | Creative Developer",
-    template: "%s | Felix Dev",
+    default: DEFAULT_TITLE,
+    template: `%s | ${SITE_NAME}`,
   },
-  description:
-    "Felix Yu - Full Stack Developer specializing in React, Next.js, TypeScript, and AI integrations. Building modern web applications with cutting-edge technologies.",
+  description: DEFAULT_DESCRIPTION,
   keywords: [
+    "Felix Yu",
+    "Felix Yu developer",
+    "Felix Yu Melbourne",
+    "Shuhai Yu",
     "Full Stack Developer",
     "React",
     "Next.js",
@@ -43,36 +58,45 @@ export const metadata: Metadata = {
     "AI Integration",
     "Melbourne Developer",
   ],
-  authors: [{ name: "Felix Yu" }],
-  creator: "Felix Yu",
+  authors: [{ name: OWNER_NAME, url: SITE_URL }],
+  creator: OWNER_NAME,
+  publisher: OWNER_NAME,
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://www.felixyu.net",
-    siteName: "Felix Dev",
-    title: "Felix Dev | Creative Developer",
-    description:
-      "Full Stack Developer specializing in React, Next.js, TypeScript, and AI integrations.",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
     images: [
       {
         url: "/images/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Felix Dev - Creative Developer",
+        alt: `${OWNER_NAME} — ${OWNER_TITLE}`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Felix Dev | Creative Developer",
-    description:
-      "Full Stack Developer specializing in React, Next.js, TypeScript, and AI integrations.",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
     images: ["/images/og-image.png"],
     creator: "@FelixYuDev",
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 };
 
@@ -92,29 +116,7 @@ export default async function RootLayout({
       className={`${spaceGrotesk.variable} ${syne.variable} ${jetbrainsMono.variable}`}
     >
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              name: "Felix Yu",
-              url: "https://www.felixyu.net",
-              jobTitle: "Full Stack Developer",
-              sameAs: [
-                "https://github.com/ShuhaiYu",
-                "https://linkedin.com/in/shuhaiyu",
-              ],
-              knowsAbout: [
-                "React",
-                "Next.js",
-                "TypeScript",
-                "Node.js",
-                "AI Integration",
-              ],
-            }),
-          }}
-        />
+        <JsonLd schema={buildGraph([personSchema, webSiteSchema])} />
       </head>
       <body className="bg-dark text-slate-200 antialiased">
         <a
@@ -125,8 +127,10 @@ export default async function RootLayout({
         </a>
         <div className="scanlines" />
         <PaletteProvider projects={paletteProjects} posts={palettePosts}>
-          <div className="relative z-10">{children}</div>
-          <NowWidget />
+          <ChatStateProvider>
+            <div className="relative z-10">{children}</div>
+            <NowWidget />
+          </ChatStateProvider>
         </PaletteProvider>
         <Analytics />
       </body>

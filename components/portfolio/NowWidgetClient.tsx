@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { X, Rocket, PenTool, BookOpen, GitCommit } from "lucide-react";
 import { gsap, useGSAP, EASE, prefersReducedMotion } from "@/lib/gsap";
+import { useChatState } from "@/components/ui/ChatStateProvider";
 import type { NowState } from "@/lib/now";
 
 interface LatestCommit {
@@ -19,6 +20,7 @@ interface NowWidgetClientProps {
 
 export default function NowWidgetClient({ now, latestCommit }: NowWidgetClientProps) {
   const [collapsed, setCollapsed] = useState(false);
+  const { isChatOpen } = useChatState();
   const ref = useRef<HTMLDivElement | null>(null);
 
   useGSAP(
@@ -39,6 +41,10 @@ export default function NowWidgetClient({ now, latestCommit }: NowWidgetClientPr
     },
     { scope: ref },
   );
+
+  // The chat panel covers this exact corner, so yield the space entirely while
+  // it is open. The user's own collapse choice is preserved for when it closes.
+  if (isChatOpen) return null;
 
   if (collapsed) {
     return (
