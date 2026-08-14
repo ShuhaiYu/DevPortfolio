@@ -8,18 +8,11 @@ interface SitemapDoc {
 }
 
 /**
- * The shared client reads through Sanity's CDN, which can serve a stale list
- * for minutes after an edit. A sitemap built from stale data advertises
- * deleted URLs and omits new ones, so this route always reads live.
- */
-const freshClient = client.withConfig({ useCdn: false });
-
-/**
  * Fetches slugs for a document type. A CMS outage must not fail the whole
  * sitemap, so a failed query degrades to the static routes only.
  */
 async function fetchDocs(type: "post" | "project"): Promise<SitemapDoc[]> {
-  return freshClient
+  return client
     .fetch<SitemapDoc[]>(
       `*[_type == $type && defined(slug.current)] | order(publishedAt desc) {
         "slug": slug.current,

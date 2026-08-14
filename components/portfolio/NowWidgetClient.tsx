@@ -84,9 +84,27 @@ export default function NowWidgetClient({ now, latestCommit }: NowWidgetClientPr
       </div>
 
       <div className="p-4 space-y-3 font-mono text-xs">
-        <Row icon={<Rocket className="w-3.5 h-3.5" />} label="Shipping" value={now.shipping} />
-        <Row icon={<PenTool className="w-3.5 h-3.5" />} label="Writing" value={now.writing} />
-        <Row icon={<BookOpen className="w-3.5 h-3.5" />} label="Reading" value={now.reading} />
+        {now.shipping && (
+          <Row
+            icon={<Rocket className="w-3.5 h-3.5" />}
+            label="Shipping"
+            value={now.shipping}
+          />
+        )}
+        {now.writing && (
+          <Row
+            icon={<PenTool className="w-3.5 h-3.5" />}
+            label="Writing"
+            value={now.writing}
+          />
+        )}
+        {now.reading && (
+          <Row
+            icon={<BookOpen className="w-3.5 h-3.5" />}
+            label="Reading"
+            value={now.reading}
+          />
+        )}
       </div>
 
       {latestCommit && (

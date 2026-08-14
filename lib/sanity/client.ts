@@ -6,7 +6,11 @@ export const client = createClient({
   projectId: "1efjjikg",
   dataset: "production",
   apiVersion: "2024-01-01",
-  useCdn: true,
+  // Next.js already caches these fetches via each route's `revalidate`.
+  // Reading through Sanity's CDN as well adds a second cache with its own
+  // expiry, which meant published edits could stay invisible even after a
+  // fresh deploy. One controlled cache layer is enough.
+  useCdn: false,
 });
 
 const builder = imageUrlBuilder(client);
